@@ -1,5 +1,5 @@
 <?php
-package FruitMachine;
+namespace FruitMachine;
 
 /**
  * FruitMachineSingleton
