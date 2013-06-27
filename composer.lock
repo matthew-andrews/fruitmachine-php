@@ -3,23 +3,23 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "afcbc3690f3fcd6fe4c99c1bf8f57603",
+    "hash": "eb88af094a43c414b3f6cadd32d544a5",
     "packages": [
         {
             "name": "MattAndrews/model-php",
-            "version": "v0.0.1",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthew-andrews/model-php.git",
-                "reference": "v0.0.1"
+                "reference": "v0.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/v0.0.1",
-                "reference": "v0.0.1",
+                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/v0.0.2",
+                "reference": "v0.0.2",
                 "shasum": ""
             },
-            "require": {
+            "require-dev": {
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
@@ -37,11 +37,13 @@
             ],
             "description": "A PHP port of @wilsonpage's Model",
             "support": {
-                "source": "https://github.com/matthew-andrews/model-php/tree/v0.0.1",
+                "source": "https://github.com/matthew-andrews/model-php/tree/v0.0.2",
                 "issues": "https://github.com/matthew-andrews/model-php/issues"
             },
-            "time": "2013-06-27 22:08:28"
-        },
+            "time": "2013-06-27 22:44:27"
+        }
+    ],
+    "packages-dev": [
         {
             "name": "phpunit/php-code-coverage",
             "version": "1.2.11",
@@ -446,9 +448,6 @@
             "homepage": "http://symfony.com",
             "time": "2013-05-10 18:12:13"
         }
-    ],
-    "packages-dev": [
-
     ],
     "aliases": [
 
