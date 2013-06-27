@@ -1,0 +1,28 @@
+{
+  "name": "MattAndrews/fruitmachine-php",
+  "description": "A PHP port of @FTLabs's FruitMachine",
+  "require-dev": {
+    "phpunit/phpunit": "3.7.*"
+  },
+  "require": {
+    "MattAndrews/model-php": "*"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/matthew-andrews/model-php.git"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Matt Andrews",
+      "email": "matt@mattandre.ws",
+      "homepage": "http://mattandre.ws"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "FruitMachine\\": "app/"
+    }
+  }
+}
