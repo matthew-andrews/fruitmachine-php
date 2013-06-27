@@ -13,7 +13,7 @@ namespace FruitMachine;
  * @copyright The Financial Times Limited [All Rights Reserved]
  */
 
-class FruitMachineSingleton {
+class Singleton {
 
   private static $_instance;
 
