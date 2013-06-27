@@ -22,7 +22,8 @@
   ],
   "autoload": {
     "psr-0": {
-      "FruitMachine\\": "src/"
+      "FruitMachine\\": "src/",
+      "Test\\": "test/src"
     }
   }
 }
