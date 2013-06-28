@@ -34,7 +34,7 @@ class Module {
       : count($this->children);
     $slot = is_array($options) && !empty($options['slot'])
       ? $options['slot']
-      : !is_array($options) ? $options : null;
+      : (!is_array($options) ? $options : null);
 
     // Remove this view first if it already has a parent
     if (!empty($child->parent)) $child->remove();
@@ -43,7 +43,7 @@ class Module {
     $slot = $child->slot = !is_null($slot) ? $slot : $child->slot;
 
     // Remove any module that already occupies this slot
-    if (!empty($this->slots[$slot])) {
+    if ($slot && !empty($this->slots[$slot])) {
       $this->slots[$slot]->remove();
     }
 

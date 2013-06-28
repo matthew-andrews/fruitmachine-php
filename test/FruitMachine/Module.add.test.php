@@ -31,4 +31,20 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(1, count($layout->children));
   }
 
+  public function test_the_second_param_should_define_the_slot() {
+    $apple = new Apple();
+    $layout = new Layout();
+
+    $layout->add($apple, 1);
+    $this->assertEquals($layout->slots[1], $apple);
+  }
+
+  public function test_should_be_able_to_define_the_slot_in_the_options_object() {
+    $apple = new Apple();
+    $layout = new Layout();
+
+    $layout->add($apple, array( "slot" => 1 ));
+    $this->assertEquals($layout->slots[1], $apple);
+  }
+
 }
