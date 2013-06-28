@@ -15,14 +15,14 @@ class Module {
   private $_id;
   private $_fmid;
 
-  public function __construct($options = array()) {
+  final public function __construct($options = array()) {
 
     // Various config steps
     $this->_configure($options);
     if (!empty($options['children'])) $this->_add($options['children']);
   }
 
-  public function add($child = null, $options = null) {
+  final public function add($child = null, $options = null) {
     if (!$child) return $this;
 
     // If it's not a Module, make it one.
@@ -111,5 +111,49 @@ class Module {
     unset($child['module']);
     return new $class($child);
   }
+
+  final public function remove($param1 = array(), $param2 = array()) {
+
+    // Allow view.remove(child[, options])
+    // and view.remove([options]);
+    if ($param1 instanceof Module) {
+      $param1->remove($param2);
+      return $this;
+    }
+
+    // Options and aliases
+    $options = $param1;
+    $parent = $this->parent;
+    $index;
+
+    // Unless stated otherwise,
+    // remove the view element
+    // from its parent node.
+    if ($parent) {
+
+      // Remove reference from views array
+      $index = array_search($this, $parent->children, true);
+      array_splice($parent->children, $index, 1);
+
+      // Remove references from the lookup
+      $parent->removeLookup($this);
+    }
+
+    return $this;
+  }
+
+  final public function removeLookup($child) {
+    $module = $child->module();
+
+    // Remove the module lookup
+    $index = array_search($child, $this->_modules[$module], true);
+    array_splice($this->_modules[$module], $index);
+
+    // Remove the id and slot lookup
+    unset($this->_ids[$child->id()]);
+    unset($this->slots[$child->slot]);
+    unset($child->parent);
+  }
+
 
 }
