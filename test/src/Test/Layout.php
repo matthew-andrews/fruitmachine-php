@@ -1,6 +1,6 @@
 <?php
 namespace Test;
 
-class Layout extends \FruitMachine\Module {
+class Layout extends \FruitMachine\AbstractModule {
 
 }

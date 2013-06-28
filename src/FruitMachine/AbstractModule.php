@@ -1,7 +1,7 @@
 <?php
 namespace FruitMachine;
 
-class Module {
+abstract class AbstractModule {
 
   public $children;
   public $slots;
@@ -24,7 +24,7 @@ class Module {
     if (!$child) return $this;
 
     // If it's not a Module, make it one.
-    if (!($child instanceof Module)) $child = $this::create($child['module'], $child);
+    if (!($child instanceof AbstractModule)) $child = $this::create($child['module'], $child);
 
     // Options
     $at = is_array($options) && !empty($options['at'])
@@ -70,7 +70,7 @@ class Module {
 
     // Allow view.remove(child[, options])
     // and view.remove([options]);
-    if ($param1 instanceof Module) {
+    if ($param1 instanceof AbstractModule) {
       $param1->remove($param2);
       return $this;
     }

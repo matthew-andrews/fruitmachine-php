@@ -1,6 +1,6 @@
 <?php
 namespace Test;
 
-class Orange extends \FruitMachine\Module {
+class Orange extends \FruitMachine\AbstractModule {
 
 }

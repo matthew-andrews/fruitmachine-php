@@ -1,6 +1,6 @@
 <?php
 namespace Test;
 
-class Apple extends \FruitMachine\Module {
+class Apple extends \FruitMachine\AbstractModule {
 
 }
