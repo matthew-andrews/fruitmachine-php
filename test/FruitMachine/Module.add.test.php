@@ -60,9 +60,21 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertEquals($layout->slots[1], $orange);
 
-    // TODO - Need to make this match the fruit machine
-    // JS test (refute(layout.module('apple'));)
-    $this->assertTrue(empty($layout->module['apple']));
+    $this->assertNull($layout->module('apple'));
+  }
+
+  public function test_should_remove_the_module_if_it_already_has_parent_before_being_added() {
+    $apple = new Apple();
+    $layout = new Layout();
+
+    $layout->add($apple, 1);
+
+    $this->assertEquals($layout->slots[1], $apple);
+
+    $layout->add($apple, 2);
+
+    $this->assertFalse(isset($layout->slots[1]));
+    $this->assertEquals($apple, $layout->slots[2]);
   }
 
 }

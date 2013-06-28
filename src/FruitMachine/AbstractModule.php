@@ -7,6 +7,7 @@ abstract class AbstractModule {
   public $slots;
   public $slot;
   public $parent;
+  public $name;
   public $tag;
   public $model;
 
@@ -52,18 +53,30 @@ abstract class AbstractModule {
     return $this;
   }
 
-  final public static function create($module, $child) {
-    $class = '\\Test\\' . ucwords($module);
-    unset($child['module']);
-    return new $class($child);
+  final public function each($fn) {
+    $l = count($this->children);
+    $result;
+
+    for ($i = 0; $i < $l; $i++) {
+      $result = $fn($this->children[$i]);
+      if ($result) return $result;
+    }
   }
 
   final public function id() {
     return $this->_id;
   }
 
-  final public function module() {
-    return get_class($this);
+  final public function module($key = null) {
+    if (!$key) return get_class($this);
+
+    if (isset($this->_modules[$key])) {
+      return $this->_modules[$key][0];
+    }
+
+    return $this->each(function($view) use ($key) {
+      return $view->module($key);
+    });
   }
 
   final public function remove($param1 = array(), $param2 = array()) {
@@ -71,8 +84,7 @@ abstract class AbstractModule {
     // Allow view.remove(child[, options])
     // and view.remove([options]);
     if ($param1 instanceof AbstractModule) {
-      $param1->remove($param2);
-      return $this;
+      return $param1->remove($param2);
     }
 
     // Options and aliases
@@ -107,6 +119,12 @@ abstract class AbstractModule {
     unset($this->_ids[$child->id()]);
     unset($this->slots[$child->slot]);
     unset($child->parent);
+  }
+
+  final public static function create($module, $child) {
+    $class = '\\Test\\' . ucwords($module);
+    unset($child['module']);
+    return new $class($child);
   }
 
   private function _addLookup($child) {
