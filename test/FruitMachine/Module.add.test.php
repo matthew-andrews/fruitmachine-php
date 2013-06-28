@@ -25,4 +25,10 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($layout->slots[1], $apple);
   }
 
+  public function test_should_accept_json() {
+    $layout = new Layout();
+    $layout->add(array("module" => "orange"));
+    $this->assertEquals(1, count($layout->children));
+  }
+
 }

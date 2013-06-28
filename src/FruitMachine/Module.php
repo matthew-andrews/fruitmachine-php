@@ -22,8 +22,11 @@ class Module {
     if (!empty($options['children'])) $this->_add($options['children']);
   }
 
-  public function add(Module $child = null, $options = null) {
+  public function add($child = null, $options = null) {
     if (!$child) return $this;
+
+    // If it's not a Module, make it one.
+    if (!($child instanceof Module)) $child = $this::create($child['module'], $child);
 
     // Options
     $at = is_array($options) && !empty($options['at'])
@@ -43,9 +46,6 @@ class Module {
     if (!empty($this->slots[$slot])) {
       $this->slots[$slot]->remove();
     }
-
-    // If it's not a Module, make it one.
-    if (!($child instanceof Module)) $child = new Module($child);
 
     array_splice($this->children, $at, 0, array($child));
     $this->_addLookup($child);
@@ -104,6 +104,12 @@ class Module {
 
   final public function id() {
     return $this->_id;
+  }
+
+  final public static function create($module, $child) {
+    $class = '\\Test\\' . ucwords($module);
+    unset($child['module']);
+    return new $class($child);
   }
 
 }
