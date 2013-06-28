@@ -16,8 +16,6 @@ class Module {
   private $_fmid;
 
   final public function __construct($options = array()) {
-
-    // Various config steps
     $this->_configure($options);
     if (!empty($options['children'])) $this->_add($options['children']);
   }
@@ -54,62 +52,18 @@ class Module {
     return $this;
   }
 
-  private function _addLookup($child) {
-    $module = $child->module();
-
-    // Add a lookup for module
-    if (empty($this->_modules[$module])) $this->_modules[$module] = array();
-    array_push($this->_modules[$module], $child);
-
-    // Add a lookup for id
-    $this->_ids[$child->id()] = $child;
-
-    // Store a reference by slot
-    if ($child->slot) $this->slots[$child->slot] = $child;
-
-    // Add a reference to the child's parent
-    $child->parent = $this;
-  }
-
-  private function _configure($options) {
-
-    // Setup static properties
-    $this->_id = !empty($options['id']) ? $options['id'] : Util::uniqueId();
-    $this->_fmid = !empty($options['fmid']) ? $options['fmid'] : Util::uniqueId('fmid');
-    $this->tag = !empty($options['tag']) ? $options['tag'] : 'div';
-    // this.classes = this.classes || options.classes || [];
-    // this.helpers = this.helpers || options.helpers || [];
-    // this.template = this._setTemplate(options.template || this.template);
-    $this->slot = !empty($options['slot']) ? $options['slot'] : null;
-
-    // Create id and module
-    // lookup objects
-    $this->children = array();
-    $this->_ids = array();
-    $this->_modules = array();
-    $this->slots = array();
-
-    // Use the model passed in,
-    // or create a model from
-    // the data passed in.
-    // model = options.model || options.data || {};
-    // this.model = util.isPlainObject(model)
-      // ? new this.Model(model)
-      // : model;
-  }
-
-  final public function module() {
-    return get_class($this);
+  final public static function create($module, $child) {
+    $class = '\\Test\\' . ucwords($module);
+    unset($child['module']);
+    return new $class($child);
   }
 
   final public function id() {
     return $this->_id;
   }
 
-  final public static function create($module, $child) {
-    $class = '\\Test\\' . ucwords($module);
-    unset($child['module']);
-    return new $class($child);
+  final public function module() {
+    return get_class($this);
   }
 
   final public function remove($param1 = array(), $param2 = array()) {
@@ -155,5 +109,48 @@ class Module {
     unset($child->parent);
   }
 
+  private function _addLookup($child) {
+    $module = $child->module();
+
+    // Add a lookup for module
+    if (empty($this->_modules[$module])) $this->_modules[$module] = array();
+    array_push($this->_modules[$module], $child);
+
+    // Add a lookup for id
+    $this->_ids[$child->id()] = $child;
+
+    // Store a reference by slot
+    if ($child->slot) $this->slots[$child->slot] = $child;
+
+    // Add a reference to the child's parent
+    $child->parent = $this;
+  }
+
+  private function _configure($options) {
+
+    // Setup static properties
+    $this->_id = !empty($options['id']) ? $options['id'] : Util::uniqueId();
+    $this->_fmid = !empty($options['fmid']) ? $options['fmid'] : Util::uniqueId('fmid');
+    $this->tag = !empty($options['tag']) ? $options['tag'] : 'div';
+    // this.classes = this.classes || options.classes || [];
+    // this.helpers = this.helpers || options.helpers || [];
+    // this.template = this._setTemplate(options.template || this.template);
+    $this->slot = !empty($options['slot']) ? $options['slot'] : null;
+
+    // Create id and module
+    // lookup objects
+    $this->children = array();
+    $this->_ids = array();
+    $this->_modules = array();
+    $this->slots = array();
+
+    // Use the model passed in,
+    // or create a model from
+    // the data passed in.
+    // model = options.model || options.data || {};
+    // this.model = util.isPlainObject(model)
+      // ? new this.Model(model)
+      // : model;
+  }
 
 }
