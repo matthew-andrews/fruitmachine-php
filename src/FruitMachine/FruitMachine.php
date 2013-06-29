@@ -3,7 +3,7 @@ namespace FruitMachine;
 
 class FruitMachine {
 
-  private $_modelClass;
+  private $_model;
   public $config = array(
     'templateIterator' => 'children',
     'templateInstance' => 'child'
@@ -13,23 +13,19 @@ class FruitMachine {
   /**
    * Creates a fruitmachine
    *
-   * QUESTION: Perhaps we should be passing in a ModelFactory instead?
-   *
-   * @param ModelInterface $model [A php object that implements the model interface]
+   * @param ModelInterface $model A php object that implements the model interface
    */
-  final public function __construct(\MattAndrews\ModelInterface $model) {
-    $this->_setModel($model);
+  final public function __construct($model) {
     $this->reset();
-  }
 
-  /**
-   * Set the type of model.
-   *
-   * @private
-   * @param \MattAndrews\ModelInterface $model [description]
-   */
-  private function _setModel(\MattAndrews\ModelInterface $model) {
-    $this->_modelClass = get_class($model);
+    // If it isn't already loaded trigger the autoloading of model class
+    if (!class_exists($model)) spl_autoload_call($model);
+
+    // ... and throw an exception if it wasn't found
+    if (!class_exists($model)) throw new ModelNotDefinedException("Class passed into FruitMachine cannot be found");
+
+    // But store the classname internally if it was.
+    $this->_model = $model;
   }
 
   /**
@@ -41,14 +37,13 @@ class FruitMachine {
    * @return void
    */
   final public function define($name, $class) {
-    if (!class_exists($class)) {
 
-      // Manually trigger the autoloading of the specified class...
-      spl_autoload_call($class);
+    // Manually trigger the autoloading of the specified class...
+    if (!class_exists($class)) spl_autoload_call($class);
 
-      // ... and throw an exception if it wasn't found
-      throw new ModuleNotDefinedException("Class passed into FruitMachine#define does not exist");
-    }
+    // ... and throw an exception if it wasn't found
+    if (!class_exists($class)) throw new ModuleNotDefinedException("Class passed into FruitMachine#define cannot be found");
+
     $this->_fruit[$name] = $class;
   }
 
@@ -59,7 +54,7 @@ class FruitMachine {
    * @return AbstractModule  A fully instantiated FM module
    */
   final public function create($name, $options = array()) {
-    if (!isset($this->_fruit[$name])) throw new ModuleNotDefinedException("Module specified does not exist");
+    if (!isset($this->_fruit[$name])) throw new ModuleNotDefinedException("Module specified cannot be found");
 
     $module = new $this->_fruit[$name]($this, $options);
     return $module;
@@ -70,7 +65,7 @@ class FruitMachine {
   }
 
   final public function model(array $data) {
-    return new $this->_modelClass($data);
+    return new $this->_model($data);
   }
 
 }

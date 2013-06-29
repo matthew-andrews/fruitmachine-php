@@ -22,15 +22,8 @@ class Singleton {
   }
 
   public static function getInstance() {
-    if (self::$_instance === null ) {
-
-      // A little wasteful to create a model just
-      // to throw it away but we want to make
-      // sure any model used implements the
-      // proper interface.  Perhaps in future we
-      // could use a ModelFactory instead.
-      $model = new \MattAndrews\Model();
-      self::$_instance = new FruitMachine($model);
+    if (self::$_instance === null) {
+      self::$_instance = new FruitMachine('\MattAndrews\Model');
     }
     return self::$_instance;
   }
