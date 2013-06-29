@@ -34,7 +34,7 @@ abstract class AbstractModule {
     $at = is_array($options) && !empty($options['at'])
       ? $options['at']
       : count($this->children);
-    echo $slot = is_array($options) && !empty($options['slot'])
+    $slot = is_array($options) && !empty($options['slot'])
       ? $options['slot']
       : (!is_array($options) ? $options : null);
 

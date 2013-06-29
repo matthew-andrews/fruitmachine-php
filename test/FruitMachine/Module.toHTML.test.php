@@ -1,26 +1,26 @@
 <?php
-namespace Test;
+namespace FruitMachine;
 
 class ModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
-    \FruitMachine\Singleton::getInstance()->define('layout', '\Test\Layout');
-    \FruitMachine\Singleton::getInstance()->define('apple', '\Test\Apple');
+    Singleton::getInstance()->define('layout', '\Test\Layout');
+    Singleton::getInstance()->define('apple', '\Test\Apple');
   }
 
   public function tearDown() {
-    \FruitMachine\Singleton::getInstance()->reset();
+    Singleton::getInstance()->reset();
   }
 
   public function test_should_return_a_string() {
-    $layout = \FruitMachine\Singleton::getInstance()->create('layout');
+    $layout = Singleton::getInstance()->create('layout');
     $html = $layout->toHTML();
     $this->assertTrue(is_string($html));
   }
 
   public function test_should_print_the_child_html_into_the_corresponding_slot() {
-    $apple = \FruitMachine\Singleton::getInstance()->create('apple', array("slot" => 1));
-    $layout = \FruitMachine\Singleton::getInstance()->create('layout', array(
+    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
+    $layout = Singleton::getInstance()->create('layout', array(
       "children" => array(
         $apple
       )
