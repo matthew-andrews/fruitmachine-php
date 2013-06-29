@@ -7,7 +7,6 @@ abstract class AbstractModule {
   public $slots;
   public $slot;
   public $parent;
-  public $name;
   public $tag;
   public $model;
 
@@ -68,7 +67,7 @@ abstract class AbstractModule {
   }
 
   final public function module($key = null) {
-    if (!$key) return get_class($this);
+    if (!$key) return $this->_module();
 
     if (isset($this->_modules[$key])) {
       return $this->_modules[$key][0];
@@ -80,6 +79,9 @@ abstract class AbstractModule {
   }
 
   final public function remove($param1 = array(), $param2 = array()) {
+
+    // Don't do anything if the first arg is null
+    if (func_num_args() === 1 && is_null($param1)) return $this;
 
     // Allow view.remove(child[, options])
     // and view.remove([options]);
@@ -169,6 +171,11 @@ abstract class AbstractModule {
     // this.model = util.isPlainObject(model)
       // ? new this.Model(model)
       // : model;
+  }
+
+  private function _module() {
+    $class = get_class($this);
+    return strtolower(array_pop(explode('\\', $class)));
   }
 
 }
