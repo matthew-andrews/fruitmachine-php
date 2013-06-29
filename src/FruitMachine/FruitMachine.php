@@ -4,11 +4,12 @@ namespace FruitMachine;
 class FruitMachine {
 
   private $_model;
+  private $_fruit;
+
   public $config = array(
     'templateIterator' => 'children',
     'templateInstance' => 'child'
   );
-  private $_fruit;
 
   /**
    * Creates a fruitmachine
@@ -60,12 +61,12 @@ class FruitMachine {
     return $module;
   }
 
-  final public function reset() {
-    $this->_fruit = array();
-  }
-
   final public function model(array $data) {
     return new $this->_model($data);
+  }
+
+  final public function reset() {
+    $this->_fruit = array();
   }
 
 }

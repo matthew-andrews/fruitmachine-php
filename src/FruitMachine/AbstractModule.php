@@ -129,21 +129,19 @@ abstract class AbstractModule {
 
   final public function toHTML() {
     $data = array();
-    $html;
-    $tmp;
 
     // Create an array for view
     // children data needed in template.
     $data[$this->_fruitmachine->config['templateIterator']] = array();
 
     // Loop each child
-    $this->each(function($child) {
+    $this->each(function($child) use (&$data) {
       $tmp = array();
       $html = $child->toHTML();
       $slot = $child->slot ? $child->slot : $child->id();
       $data[$slot] = $html;
       $tmp[$this->_fruitmachine->config['templateInstance']] = $html;
-      $data->children.push(array_merge($tmp, $child->model->toJSON()));
+      array_push($data->children, array_merge($tmp, $child->model->toJSON()));
     });
 
     // Run the template render method
