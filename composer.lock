@@ -7,16 +7,16 @@
     "packages": [
         {
             "name": "MattAndrews/model-php",
-            "version": "v0.0.2",
+            "version": "v0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthew-andrews/model-php.git",
-                "reference": "v0.0.2"
+                "reference": "v0.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/v0.0.2",
-                "reference": "v0.0.2",
+                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/v0.0.3",
+                "reference": "v0.0.3",
                 "shasum": ""
             },
             "require-dev": {
@@ -37,10 +37,10 @@
             ],
             "description": "A PHP port of @wilsonpage's Model",
             "support": {
-                "source": "https://github.com/matthew-andrews/model-php/tree/v0.0.2",
+                "source": "https://github.com/matthew-andrews/model-php/tree/v0.0.3",
                 "issues": "https://github.com/matthew-andrews/model-php/issues"
             },
-            "time": "2013-06-27 22:44:27"
+            "time": "2013-06-29 21:40:30"
         }
     ],
     "packages-dev": [

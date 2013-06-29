@@ -4,18 +4,22 @@ namespace FruitMachine;
 abstract class AbstractModule {
 
   public $children;
+  public $classes = array();
   public $slots;
   public $slot;
   public $parent;
   public $tag;
   public $model;
 
+  private $_fruitmachine;
   private $_modules;
   private $_ids;
   private $_id;
   private $_fmid;
+  private $_template;
 
-  final public function __construct($options = array()) {
+  final public function __construct(FruitMachine $machine, $options = array()) {
+    $this->_fruitmachine = $machine;
     $this->_configure($options);
     if (!empty($options['children'])) $this->_add($options['children']);
   }
@@ -24,7 +28,7 @@ abstract class AbstractModule {
     if (!$child) return $this;
 
     // If it's not a Module, make it one.
-    if (!($child instanceof AbstractModule)) $child = $this::create($child['module'], $child);
+    if (!($child instanceof AbstractModule)) $child = $this->_fruitmachine->create($child['module'], $child);
 
     // Options
     $at = is_array($options) && !empty($options['at'])
@@ -69,7 +73,7 @@ abstract class AbstractModule {
   final public function module($key = null) {
     if (!$key) return $this->_module();
 
-    if (isset($this->_modules[$key])) {
+    if (isset($this->_modules[$key]) && isset($this->_modules[$key][0])) {
       return $this->_modules[$key][0];
     }
 
@@ -123,11 +127,37 @@ abstract class AbstractModule {
     unset($child->parent);
   }
 
-  final public static function create($module, $child) {
-    $class = '\\Test\\' . ucwords($module);
-    unset($child['module']);
-    return new $class($child);
+  final public function toHTML() {
+    $data = array();
+    $html;
+    $tmp;
+
+    // Create an array for view
+    // children data needed in template.
+    $data[$this->_fruitmachine->config['templateIterator']] = array();
+
+    // Loop each child
+    $this->each(function($child) {
+      $tmp = array();
+      $html = $child->toHTML();
+      $slot = $child->slot ? $child->slot : $child->id();
+      $data[$slot] = $html;
+      $tmp[$this->_fruitmachine->config['templateInstance']] = $html;
+      $data->children.push(array_merge($tmp, $child->model->toJSON()));
+    });
+
+    // Run the template render method
+    // passing children data (for looping
+    // or child views) mixed with the
+    // view's model data.
+    $html = $this->template(array_merge($data, $this->model->toJSON()));
+
+    // Wrap the html in a FruitMachine
+    // generated root element and return.
+    return $this->_wrapHTML($html);
   }
+
+  abstract public function template(array $data);
 
   private function _addLookup($child) {
     $module = $child->module();
@@ -152,9 +182,9 @@ abstract class AbstractModule {
     $this->_id = !empty($options['id']) ? $options['id'] : Util::uniqueId();
     $this->_fmid = !empty($options['fmid']) ? $options['fmid'] : Util::uniqueId('fmid');
     $this->tag = !empty($options['tag']) ? $options['tag'] : 'div';
-    // this.classes = this.classes || options.classes || [];
-    // this.helpers = this.helpers || options.helpers || [];
-    // this.template = this._setTemplate(options.template || this.template);
+    // $this->classes = $this->classes || options.classes || [];
+    // $this->helpers = $this->helpers || options.helpers || [];
+    // $this->template = $this->_setTemplate(options.template || $this->template);
     $this->slot = !empty($options['slot']) ? $options['slot'] : null;
 
     // Create id and module
@@ -167,10 +197,12 @@ abstract class AbstractModule {
     // Use the model passed in,
     // or create a model from
     // the data passed in.
-    // model = options.model || options.data || {};
-    // this.model = util.isPlainObject(model)
-      // ? new this.Model(model)
-      // : model;
+    $model = isset($options['model'])
+      ? $options['model']
+      : (isset($options['data']) ? $options['data'] : array());
+    $this->model = is_array($model)
+      ? $this->_fruitmachine->model($model)
+      : $model;
   }
 
 
@@ -183,6 +215,14 @@ abstract class AbstractModule {
   private function _module() {
     $class = get_class($this);
     return strtolower(array_pop(explode('\\', $class)));
+  }
+
+  private function _wrapHTML($html) {
+    return '<'. $this->tag
+      . ' class="' . $this->module() . ' ' . implode(' ', $this->classes) . '"'
+      . ' id="' . $this->_fmid . '">'
+      . $html
+      . '</' . $this->tag . '>';
   }
 
 }

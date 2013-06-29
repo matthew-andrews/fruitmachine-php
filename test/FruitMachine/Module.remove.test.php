@@ -3,10 +3,20 @@ namespace Test;
 
 class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
 
+  public function setUp() {
+    \FruitMachine\Singleton::getInstance()->define('apple', '\Test\Apple');
+    \FruitMachine\Singleton::getInstance()->define('layout', '\Test\Layout');
+    \FruitMachine\Singleton::getInstance()->define('orange', '\Test\Orange');
+  }
+
+  public function tearDown() {
+    \FruitMachine\Singleton::getInstance()->reset();
+  }
+
   public function test_should_remove_the_child_passed_from_the_parents_children_array() {
-    $list = new Layout();
-    $apple1 = new Apple();
-    $apple2 = new Apple();
+    $list = \FruitMachine\Singleton::getInstance()->create('layout');
+    $apple1 = \FruitMachine\Singleton::getInstance()->create('apple');
+    $apple2 = \FruitMachine\Singleton::getInstance()->create('apple');
 
     $list
       ->add($apple1)
@@ -18,8 +28,8 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_remove_itself_if_called_with_no_arguments() {
-    $list = new Layout();
-    $apple = new Apple(array("id" => "foo"));
+    $list = \FruitMachine\Singleton::getInstance()->create('layout');
+    $apple = \FruitMachine\Singleton::getInstance()->create('apple', array("id" => "foo"));
 
     $list->add($apple);
     $apple->remove();
@@ -28,8 +38,8 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_remove_reference_back_to_parent_view() {
-    $layout = new Layout();
-    $apple = new Apple(array("slot" => 1));
+    $layout = \FruitMachine\Singleton::getInstance()->create('layout');
+    $apple = \FruitMachine\Singleton::getInstance()->create('apple', array("slot" => 1));
 
     $layout->add($apple);
 
@@ -41,8 +51,8 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_remove_slot_reference() {
-    $layout = new Layout();
-    $apple = new Apple(array("slot" => 1));
+    $layout = \FruitMachine\Singleton::getInstance()->create('layout');
+    $apple = \FruitMachine\Singleton::getInstance()->create('apple', array("slot" => 1));
 
     $layout->add($apple);
 
@@ -54,8 +64,8 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_not_remove_itself_if_first_argument_is_null() {
-    $layout = new Layout();
-    $apple = new Apple(array("slot" => 1));
+    $layout = \FruitMachine\Singleton::getInstance()->create('layout');
+    $apple = \FruitMachine\Singleton::getInstance()->create('apple', array("slot" => 1));
 
     $layout->add($apple);
 

@@ -2,7 +2,7 @@
 namespace FruitMachine;
 
 /**
- * FruitMachineSingleton
+ * Singleton
  *
  * Like with it's javascript equivalent, the
  * PHP version of FruitMachine provides a
