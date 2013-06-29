@@ -173,6 +173,13 @@ abstract class AbstractModule {
       // : model;
   }
 
+
+  /**
+   * Detech the module's name by looking at the class
+   *
+   * @private
+   * @return [String] The name of the module
+   */
   private function _module() {
     $class = get_class($this);
     return strtolower(array_pop(explode('\\', $class)));
