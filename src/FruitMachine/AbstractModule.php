@@ -34,7 +34,7 @@ abstract class AbstractModule {
     $at = is_array($options) && !empty($options['at'])
       ? $options['at']
       : count($this->children);
-    $slot = is_array($options) && !empty($options['slot'])
+    echo $slot = is_array($options) && !empty($options['slot'])
       ? $options['slot']
       : (!is_array($options) ? $options : null);
 
@@ -129,26 +129,27 @@ abstract class AbstractModule {
 
   final public function toHTML() {
     $data = array();
+    $templateInstance = $this->_fruitmachine->config['templateInstance'];
 
     // Create an array for view
     // children data needed in template.
     $data[$this->_fruitmachine->config['templateIterator']] = array();
 
     // Loop each child
-    $this->each(function($child) use (&$data) {
+    $this->each(function($child) use (&$data, $templateInstance) {
       $tmp = array();
       $html = $child->toHTML();
       $slot = $child->slot ? $child->slot : $child->id();
       $data[$slot] = $html;
-      $tmp[$this->_fruitmachine->config['templateInstance']] = $html;
-      array_push($data->children, array_merge($tmp, $child->model->toJSON()));
+      $tmp[$templateInstance] = $html;
+      array_push($data['children'], array_merge($tmp, $child->model->toJSON()));
     });
 
     // Run the template render method
     // passing children data (for looping
     // or child views) mixed with the
     // view's model data.
-    $html = $this->template(array_merge($data, $this->model->toJSON()));
+    $html = $this->template($data + $this->model->toJSON());
 
     // Wrap the html in a FruitMachine
     // generated root element and return.
@@ -156,6 +157,24 @@ abstract class AbstractModule {
   }
 
   abstract public function template(array $data);
+
+  /**
+   * A private add method
+   * that accepts a list of
+   * children.
+   *
+   * @param array|AbstractModule $children children
+   */
+  private function _add($children) {
+    if (!$children) return;
+
+    $isArray = is_array($children);
+
+    foreach ($children as $key => $child) {
+      if (!$isArray) $child->slot = $key;
+      $this->add($child);
+    }
+  }
 
   private function _addLookup($child) {
     $module = $child->module();
@@ -198,7 +217,9 @@ abstract class AbstractModule {
     $model = isset($options['model'])
       ? $options['model']
       : (isset($options['data']) ? $options['data'] : array());
-    $this->model = is_array($model)
+
+    // Would json_encode turn array into a JS array (or object)?
+    $this->model = array_values($model) === $model
       ? $this->_fruitmachine->model($model)
       : $model;
   }

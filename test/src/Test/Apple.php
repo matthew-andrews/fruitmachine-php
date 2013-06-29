@@ -4,7 +4,7 @@ namespace Test;
 class Apple extends \FruitMachine\AbstractModule {
 
   public function template(array $data) {
-    return 'I am Apple';
+    return (isset($data[0]) ? $data[0] : '');
   }
 
 }

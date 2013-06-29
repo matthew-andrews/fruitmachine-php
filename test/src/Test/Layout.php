@@ -4,7 +4,9 @@ namespace Test;
 class Layout extends \FruitMachine\AbstractModule {
 
   public function template(array $data) {
-    return 'I am Layout';
+    return (isset($data[1]) ? $data[1] : '')
+      . (isset($data[2]) ? $data[2] : '')
+      . (isset($data[3]) ? $data[3] : '');
   }
 
 }
