@@ -22,7 +22,7 @@ class Singleton {
   }
 
   public static function getInstance() {
-    if (self::$_instance === null) {
+    if (!self::$_instance) {
       self::$_instance = new FruitMachine('\MattAndrews\Model');
     }
     return self::$_instance;

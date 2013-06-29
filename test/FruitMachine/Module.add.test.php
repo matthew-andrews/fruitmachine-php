@@ -13,6 +13,9 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     Singleton::getInstance()->reset();
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_should_accept_module_instance() {
     $layout = Singleton::getInstance()->create('layout');
     $apple = Singleton::getInstance()->create('apple');
@@ -26,6 +29,9 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(0, count($orange->children), 'Orange has no children');
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_should_store_a_reference_to_the_child_via_slot_if_the_view_added_has_a_slot() {
     $apple = Singleton::getInstance()->create('apple', array('slot' => 1));
     $layout = Singleton::getInstance()->create('layout');
@@ -35,12 +41,18 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($layout->slots[1], $apple);
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_should_accept_json() {
     $layout = Singleton::getInstance()->create('layout');
     $layout->add(array("module" => "orange"));
     $this->assertEquals(1, count($layout->children));
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_the_second_param_should_define_the_slot() {
     $apple = Singleton::getInstance()->create('apple');
     $layout = Singleton::getInstance()->create('layout');
@@ -49,6 +61,9 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($layout->slots[1], $apple);
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_should_be_able_to_define_the_slot_in_the_options_object() {
     $apple = Singleton::getInstance()->create('apple');
     $layout = Singleton::getInstance()->create('layout');
@@ -57,6 +72,9 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($layout->slots[1], $apple);
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_should_remove_a_module_if_it_already_occupies_this_slot() {
     $apple = Singleton::getInstance()->create('apple');
     $orange = Singleton::getInstance()->create('orange');
@@ -73,6 +91,9 @@ class ModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertNull($layout->module('apple'));
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
   public function test_should_remove_the_module_if_it_already_has_parent_before_being_added() {
     $apple = Singleton::getInstance()->create('apple');
     $layout = Singleton::getInstance()->create('layout');

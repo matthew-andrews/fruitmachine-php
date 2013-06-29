@@ -13,6 +13,9 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
     Singleton::getInstance()->reset();
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::remove
+   */
   public function test_should_remove_the_child_passed_from_the_parents_children_array() {
     $list = Singleton::getInstance()->create('layout');
     $apple1 = Singleton::getInstance()->create('apple');
@@ -27,6 +30,9 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
     $this->assertFalse(in_array($apple1, $list->children));
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::remove
+   */
   public function test_should_remove_itself_if_called_with_no_arguments() {
     $list = Singleton::getInstance()->create('layout');
     $apple = Singleton::getInstance()->create('apple', array("id" => "foo"));
@@ -37,6 +43,9 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
     $this->assertFalse(in_array($apple, $list->children));
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::remove
+   */
   public function test_should_remove_reference_back_to_parent_view() {
     $layout = Singleton::getInstance()->create('layout');
     $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
@@ -50,6 +59,9 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
     $this->assertFalse(isset($apple->parent));
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::remove
+   */
   public function test_should_remove_slot_reference() {
     $layout = Singleton::getInstance()->create('layout');
     $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
@@ -63,6 +75,9 @@ class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
     $this->assertFalse(isset($layout->slots[1]));
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::remove
+   */
   public function test_should_not_remove_itself_if_first_argument_is_null() {
     $layout = Singleton::getInstance()->create('layout');
     $apple = Singleton::getInstance()->create('apple', array("slot" => 1));

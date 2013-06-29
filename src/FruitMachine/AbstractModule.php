@@ -96,7 +96,6 @@ abstract class AbstractModule {
     // Options and aliases
     $options = $param1;
     $parent = $this->parent;
-    $index;
 
     // Unless stated otherwise,
     // remove the view element
