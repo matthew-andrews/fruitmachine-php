@@ -27,7 +27,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $exceptionCaught = false;
     try {
       $apple = Singleton::getInstance()->create('apple');
-    } catch (ModuleNotDefinedException $exception) {
+    } catch (Exception\ModuleNotDefined $exception) {
       $exceptionCaught = true;
     }
     $this->assertTrue($exceptionCaught);
@@ -37,7 +37,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $exceptionCaught = false;
     try {
       $apple = Singleton::getInstance()->define('silly', '\Test\Silly');
-    } catch (ModuleNotDefinedException $exception) {
+    } catch (Exception\ModuleNotDefined $exception) {
       $exceptionCaught = true;
     }
     $this->assertTrue($exceptionCaught);
@@ -78,7 +78,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $thrown = false;
     try {
       $myFM = new \Test\MyFruitMachine('\Test\MyBadModel');
-    } catch(ModelNotDefinedException $exception) {
+    } catch(Exception\ModelNotFound $exception) {
       $thrown = true;
     }
     $this->assertTrue($thrown);
