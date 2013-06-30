@@ -198,9 +198,9 @@ abstract class AbstractModule {
     $this->_id = !empty($options['id']) ? $options['id'] : Util::uniqueId();
     $this->_fmid = !empty($options['fmid']) ? $options['fmid'] : Util::uniqueId('fmid');
     $this->tag = !empty($options['tag']) ? $options['tag'] : 'div';
-    // $this->classes = $this->classes || options.classes || [];
-    // $this->helpers = $this->helpers || options.helpers || [];
-    // $this->template = $this->_setTemplate(options.template || $this->template);
+    $this->classes = isset($options['classes'])
+      ? $options['classes']
+      : (isset($this->classes) ? $this->classes : array());
     $this->slot = !empty($options['slot']) ? $options['slot'] : null;
 
     // Create id and module
