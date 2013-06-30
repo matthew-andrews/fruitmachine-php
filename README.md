@@ -17,7 +17,7 @@ class Apple extends \FruitMachine\AbstractModule
 \FruitMachine\Singleton::getInstance()->define('apple', '\Apple');
 
 // Create a module
-$apple = \FruitMachine::Singleton()->getInstance()->create('apple');
+$apple = \FruitMachine\Singleton::getInstance()->create('apple');
 
 // Render it
 $apple->toHTML();
