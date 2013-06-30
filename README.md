@@ -29,6 +29,10 @@ $apple->toHTML();
 
 Add to your composer.json manually.  To be submitted to packagist soon.
 
+## Compatability
+
+Unit tests are run on each build against PHP 5.3, 5.4 and 5.5.
+
 ## Author
 
 - **Matt Andrews** - [@matthew-andrews](http://github.com/matthew-andrews)
