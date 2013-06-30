@@ -10,7 +10,7 @@ FruitMachine is designed to build rich interactive layouts from modular, reusabl
 // Define a module
 class Apple extends \FruitMachine\AbstractModule
 
-  public funciton template() {
+  public function template() {
     return 'hello'
   }
 
