@@ -198,12 +198,34 @@ abstract class AbstractModule {
     unset($child->parent);
   }
 
+
+  /**
+   * Templates the view, including any descendent views returning an
+   * html string. All data in the views model is made accessible to
+   * the template.
+   *
+   * Child views are printed into the parent template by `id`.
+   * Alternatively children can be iterated over a a list and printed
+   * with `{{{child}}}}`.
+   *
+   * Example:
+   *
+   *   <div class="slot-1">{{{<slot>}}}</div>
+   *   <div class="slot-2">{{{<slot>}}}</div>
+   *
+   *   // or
+   *
+   *   {{#children}}
+   *     {{{child}}}
+   *   {{/children}}
+   *
+   * @return string
+   */
   final public function toHTML() {
     $data = array();
     $templateInstance = $this->_fruitmachine->config['templateInstance'];
 
-    // Create an array for view
-    // children data needed in template.
+    // Create an array for view children data needed in template.
     $data[$this->_fruitmachine->config['templateIterator']] = array();
 
     // Loop each child
@@ -216,23 +238,19 @@ abstract class AbstractModule {
       array_push($data['children'], array_merge($tmp, $child->model->toJSON()));
     });
 
-    // Run the template render method
-    // passing children data (for looping
-    // or child views) mixed with the
-    // view's model data.
+    // Run the template render method passing children data (for
+    // looping or child views) mixed with the view's model data.
     $html = $this->template($data + $this->model->toJSON());
 
-    // Wrap the html in a FruitMachine
-    // generated root element and return.
+    // Wrap the html in a FruitMachine generated root element and
+    // return.
     return $this->_wrapHTML($html);
   }
 
   abstract public function template(array $data);
 
   /**
-   * A private add method
-   * that accepts a list of
-   * children.
+   * A private add method that accepts a list of children.
    *
    * @param array|AbstractModule $children children
    */
