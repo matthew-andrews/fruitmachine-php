@@ -26,7 +26,7 @@ class FruitMachine {
 
     // ... and throw an exception if it wasn't found
     if (!class_exists($model)) {
-      throw new ModelNotDefinedException("Class passed into FruitMachine cannot be found");
+      throw new ModelNotDefinedException("Class '$model' passed into FruitMachine cannot be found");
     }
 
     // But store the classname internally if it was.
@@ -50,7 +50,7 @@ class FruitMachine {
 
     // ... and throw an exception if it wasn't found
     if (!class_exists($class)) {
-      throw new ModuleNotDefinedException("Class passed into FruitMachine#define cannot be found");
+      throw new ModuleNotDefinedException("Class '$class' passed into FruitMachine#define cannot be found");
     }
 
     $this->_fruit[$name] = $class;
@@ -64,7 +64,7 @@ class FruitMachine {
    */
   final public function create($name, $options = array()) {
     if (!isset($this->_fruit[$name])) {
-      throw new ModuleNotDefinedException("Module specified cannot be found");
+      throw new ModuleNotDefinedException("Module '$name' specified cannot be found");
     }
 
     $module = new $this->_fruit[$name]($this, $options);

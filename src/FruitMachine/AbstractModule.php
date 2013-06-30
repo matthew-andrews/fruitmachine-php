@@ -100,6 +100,29 @@ abstract class AbstractModule {
     });
   }
 
+  /**
+   * Returns a list of descendent Modules
+   * that match the module type given
+   * (Similar to Element.querySelectorAll();)
+   *
+   * @param  string $key Search by this
+   * @return array       A list of modules matching the key
+   */
+  final public function modules($key) {
+    $list = isset($this->_modules[$key])
+      ? $this->_modules[$key]
+      : array();
+
+    // Then loop each child and run the
+    // same opperation, appending the result
+    // onto the list.
+    $this->each(function($view) use (&$list, $key) {
+      $list = $list + $view->modules($key);
+    });
+
+    return $list;
+  }
+
   final public function remove($param1 = array(), $param2 = array()) {
 
     // Don't do anything if the first arg is null

@@ -28,7 +28,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
       "children" => $children
     ));
 
-    $this->assertEquals(count($view->children), 2);
+    $this->assertCount(2, $view->children);
   }
 
   public function test_should_store_a_reference_to_the_slot_if_passed() {
@@ -64,7 +64,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
 
   public function test_should_store_a_reference_to_the_slot_if_the_view_is_instantiated_with_a_slot() {
     $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
-    $this->assertEquals($apple->slot, 1);
+    $this->assertEquals(1, $apple->slot);
   }
 
   public function test_should_prefer_the_slot_on_the_children_object_in_case_of_conflict() {
