@@ -12,6 +12,7 @@ abstract class AbstractModule {
   public $model;
 
   private $_fruitmachine;
+  private $_module;
   private $_modules = array();
   private $_ids = array();
   private $_id;
@@ -292,7 +293,8 @@ abstract class AbstractModule {
    */
   private function _configure($options) {
 
-    // Setup static properties
+    // Setup properties
+    $this->_module = $options['module'];
     $this->_id = !empty($options['id']) ? $options['id'] : Util::uniqueId();
     $this->_fmid = !empty($options['fmid']) ? $options['fmid'] : Util::uniqueId('fmid');
     $this->tag = !empty($options['tag']) ? $options['tag'] : 'div';
@@ -322,8 +324,7 @@ abstract class AbstractModule {
    * @return [String] The name of the module
    */
   private function _module() {
-    $class = get_class($this);
-    return strtolower(array_pop(explode('\\', $class)));
+    return $this->_module;
   }
 
   /**

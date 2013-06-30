@@ -4,6 +4,7 @@
     colors="true">
   <php>
     <ini name="error_reporting" value="E_ALL" />
+    <ini name="date.timezone" value="Europe/London" />
   </php>
   <testsuites>
     <testsuite name="fruitmachine-php test suite">
