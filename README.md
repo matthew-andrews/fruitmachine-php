@@ -24,6 +24,7 @@ $apple = \FruitMachine::Singleton->getInstance()->create('apple');
 // Render it
 $apple->toHTML();
 //=> <div class="apple">hello</div>
+```
 
 ## Installation
 
