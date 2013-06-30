@@ -215,6 +215,13 @@ abstract class AbstractModule {
     $child->parent = $this;
   }
 
+  /**
+   * Configures the new Module with the
+   * options passed to the constructor.
+   *
+   * @param  array $options An array of options
+   * @return void
+   */
   private function _configure($options) {
 
     // Setup static properties
@@ -248,9 +255,9 @@ abstract class AbstractModule {
 
 
   /**
-   * Detech the module's name by looking at the class
+   * Detach the module's name by looking at
+   * the class
    *
-   * @private
    * @return [String] The name of the module
    */
   private function _module() {
@@ -258,6 +265,12 @@ abstract class AbstractModule {
     return strtolower(array_pop(explode('\\', $class)));
   }
 
+  /**
+   * Wraps the module html in a root element.
+   *
+   * @param  string $html The HTML to be wrapped
+   * @return string       Wrapped HTML
+   */
   private function _wrapHTML($html) {
     return '<'. $this->tag
       . ' class="' . $this->module() . ' ' . implode(' ', $this->classes) . '"'
