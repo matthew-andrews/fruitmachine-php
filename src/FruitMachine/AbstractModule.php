@@ -186,10 +186,6 @@ abstract class AbstractModule {
    * @param array|AbstractModule $children children
    */
   private function _add($children) {
-    if (!$children) {
-      return;
-    }
-
     $isArray = is_array($children);
 
     foreach ($children as $key => $child) {
