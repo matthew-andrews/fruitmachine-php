@@ -5,8 +5,8 @@ class SingletonTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
 
-    // First do hard reset (hack for coverage
-    // of the test D:)
+    // First do hard reset so that we actually test the instantiation
+    // of the FruitMachine
     Singleton::reset();
   }
 
