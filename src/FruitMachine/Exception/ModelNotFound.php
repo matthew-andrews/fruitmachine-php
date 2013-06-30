@@ -2,7 +2,7 @@
 namespace FruitMachine\Exception;
 
 /**
- * ModuleNotDefinedException
+ * ModuleNotDefined
  */
 
 class ModelNotFound extends \Exception {
