@@ -1,8 +1,6 @@
 # fruitmachine-php [![Build Status](https://travis-ci.org/matthew-andrews/fruitmachine-php.png?branch=master)](https://travis-ci.org/matthew-andrews/fruitmachine-php)
 
-A lightweight component layout engine for [client](//github.com/ftlabs/fruitmachine) and server.
-
-PHP port of [@FTLabs](//github.com/FTLabs)' [fruitmachine](//github.com/ftlabs/fruitmachine).
+PHP port of [@FTLabs](//github.com/FTLabs)' [fruitmachine](//github.com/ftlabs/fruitmachine), a lightweight component layout engine for [client](//github.com/ftlabs/fruitmachine) and server.
 
 FruitMachine is designed to build rich interactive layouts from modular, reusable components. It's light and unopinionated so that it can be applied to almost any layout problem. FruitMachine is currently powering the [FT Web App](http://apps.ft.com/ftwebapp/).
 
