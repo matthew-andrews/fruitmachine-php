@@ -3,7 +3,8 @@
   "description": "A PHP port of @FTLabs's FruitMachine",
   "require-dev": {
     "phpunit/phpunit": "3.7.*",
-    "phpunit/php-code-coverage": ">=1.2.10,<1.3.0"
+    "phpunit/php-code-coverage": ">=1.2.10,<1.3.0",
+    "phpmd/phpmd" : "1.4.*"
   },
   "require": {
     "MattAndrews/model-php": "*"

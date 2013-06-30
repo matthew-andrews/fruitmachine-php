@@ -16,7 +16,6 @@ abstract class AbstractModule {
   private $_ids;
   private $_id;
   private $_fmid;
-  private $_template;
 
   final public function __construct(FruitMachine $machine, $options = array()) {
     $this->_fruitmachine = $machine;
