@@ -42,6 +42,18 @@ abstract class AbstractModule {
     }
   }
 
+  /**
+   * Adds a child view(s) to another Module.
+   *
+   * Options:
+   *
+   *  - `at` The child index at which to insert
+   *  - `inject` Injects the child's view element into the parent's
+   *  - `slot` The slot at which to insert the child
+   *
+   * @param AbstractModule|array $children
+   * @param array|string|number   $options
+   */
   final public function add($child = null, $options = null) {
     if (!$child) {
       return $this;
