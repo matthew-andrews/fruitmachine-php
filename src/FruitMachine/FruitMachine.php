@@ -58,6 +58,7 @@ class FruitMachine {
 
   /**
    * Factory method for fruit
+   *
    * @param  string|array $name    The name of the module to be created
    * @param  array        $options Options to be passed into the FM Module
    * @return AbstractModule  A fully instantiated FM module

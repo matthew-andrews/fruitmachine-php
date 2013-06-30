@@ -4,10 +4,9 @@ namespace FruitMachine;
 /**
  * Singleton
  *
- * Like with it's javascript equivalent, the
- * PHP version of FruitMachine provides a
- * convenience singleton that uses a PHP
- * port of @WilsonPage's model class
+ * Like with it's javascript equivalent, the PHP version of
+ * FruitMachine provides a convenience singleton that uses a PHP port
+ * of @WilsonPage's model class
  *
  * @author Matt Andrews <matt@mattandre.ws>
  * @copyright The Financial Times Limited [All Rights Reserved]
