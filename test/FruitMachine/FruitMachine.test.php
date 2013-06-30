@@ -67,4 +67,21 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals("orange", $layout->slots[2]->module());
   }
 
+  public function test_can_build_your_own_fruitmachines() {
+    $myFM = new \Test\MyFruitMachine('\Test\MyModel');
+    $myFM->define('apple', '\Test\Apple');
+    $apple = $myFM->create('apple');
+    $this->assertInstanceOf('\Test\Apple', $apple);
+  }
+
+  public function test_exception_throw_if_build_your_own_fruitmachine_with_bad_model() {
+    $thrown = false;
+    try {
+      $myFM = new \Test\MyFruitMachine('\Test\MyBadModel');
+    } catch(ModelNotDefinedException $exception) {
+      $thrown = true;
+    }
+    $this->assertTrue($thrown);
+  }
+
 }

@@ -1,6 +1,8 @@
 <?php
 namespace FruitMachine;
 
+require_once(__DIR__ . '/ModuleNotDefinedException.php');
+
 class FruitMachine {
 
   private $_model;
