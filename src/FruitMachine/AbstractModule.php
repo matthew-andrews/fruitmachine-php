@@ -66,12 +66,24 @@ abstract class AbstractModule {
     }
   }
 
-  final public function id() {
-    return $this->_id;
+  final public function id($id = null) {
+    if (func_num_args() === 0) {
+      return $this->_id;
+    }
+
+    if (isset($this->_ids[$id])) {
+      return $this->_ids[$id];
+    }
+
+    return $this->each(function($view) use ($id) {
+      return $view->id($id);
+    });
   }
 
   final public function module($key = null) {
-    if (!$key) return $this->_module();
+    if (func_num_args() === 0) {
+      return $this->_module();
+    }
 
     if (isset($this->_modules[$key]) && isset($this->_modules[$key][0])) {
       return $this->_modules[$key][0];
