@@ -3,17 +3,17 @@ namespace FruitMachine;
 
 abstract class AbstractModule {
 
-  public $children;
+  public $children = array();
   public $classes = array();
-  public $slots;
+  public $slots = array();
   public $slot;
   public $parent;
   public $tag;
   public $model;
 
   private $_fruitmachine;
-  private $_modules;
-  private $_ids;
+  private $_modules = array();
+  private $_ids = array();
   private $_id;
   private $_fmid;
 
@@ -127,13 +127,13 @@ abstract class AbstractModule {
       array_splice($parent->children, $index, 1);
 
       // Remove references from the lookup
-      $parent->_removeLookup($this);
+      $parent->removeLookup($this);
     }
 
     return $this;
   }
 
-  private function _removeLookup($child) {
+  private function removeLookup($child) {
     $module = $child->module();
 
     // Remove the module lookup
@@ -227,13 +227,6 @@ abstract class AbstractModule {
       ? $options['classes']
       : (isset($this->classes) ? $this->classes : array());
     $this->slot = !empty($options['slot']) ? $options['slot'] : null;
-
-    // Create id and module
-    // lookup objects
-    $this->children = array();
-    $this->_ids = array();
-    $this->_modules = array();
-    $this->slots = array();
 
     // Use the model passed in,
     // or create a model from
