@@ -1,7 +1,7 @@
 <?php
 namespace FruitMachine;
 
-class ModuleRemoveTest extends \PHPUnit_Framework_TestCase {
+class AbstractModuleRemoveTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
     Singleton::getInstance()->define('apple', '\Test\Apple');

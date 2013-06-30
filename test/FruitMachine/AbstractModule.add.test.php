@@ -4,7 +4,7 @@ namespace FruitMachine;
 /**
  * @covers \FruitMachine\AbstractModule::<private>
  */
-class ModuleAddTest extends \PHPUnit_Framework_TestCase {
+class AbstractModuleAddTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
     Singleton::getInstance()->define('apple', '\Test\Apple');

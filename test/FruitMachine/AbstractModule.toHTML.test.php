@@ -1,7 +1,7 @@
 <?php
 namespace FruitMachine;
 
-class ModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
+class AbstractModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
     Singleton::getInstance()->define('layout', '\Test\Layout');
