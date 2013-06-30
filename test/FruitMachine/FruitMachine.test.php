@@ -20,6 +20,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @covers \FruitMachine\FruitMachine::create
+   * @covers \FruitMachine\FruitMachine::_create
    * @covers \FruitMachine\AbstractModule::__construct
    */
   public function test_creating_an_undefined_module_throws_error() {
