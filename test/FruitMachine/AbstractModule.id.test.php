@@ -37,4 +37,23 @@ class AbstractModuleIdTest extends \PHPUnit_Framework_TestCase {
     $this->assertNull($view->id(null));
   }
 
+  public function test_can_find_nested_children() {
+    $layout = Singleton::getInstance()->create('layout', array(
+      "children" => array(
+        1 => array(
+          "module" => 'layout',
+          "id" => 'some_id',
+          "children" => array(
+            array(
+              "module" => "apple",
+              "id" => "deeply_nested"
+            )
+          )
+        )
+      )
+    ));
+    $child = $layout->id('deeply_nested');
+    $this->assertInstanceOf('\Test\Apple', $child);
+  }
+
 }

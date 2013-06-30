@@ -88,4 +88,37 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
     $this->assertContains('id="1234"', $view->toHTML());
   }
 
+  public function test_each() {
+    $fm = Singleton::getInstance();
+    $apple1 = $fm->create('apple');
+    $apple2 = $fm->create('apple');
+    $orange = $fm->create('orange');
+    $view = $fm->create("layout", array(
+      'children' => array(
+        1 => $apple1,
+        2 => $orange,
+        3 => $apple2
+      )
+    ));
+
+    // Find the first apple
+    $search = $view->each(function($child) {
+      if ($child->module() === 'apple') {
+        return $child;
+      }
+    });
+
+    $this->assertEquals($apple1, $search);
+    $this->assertNotEquals($apple2, $search);
+
+    // Find the orange
+    $search = $view->each(function($child) {
+      if ($child->module() === 'orange') {
+        return $child;
+      }
+    });
+
+    $this->assertEquals($orange, $search);
+  }
+
 }
