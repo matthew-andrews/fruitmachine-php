@@ -33,9 +33,9 @@ abstract class AbstractModule {
    *
    * @constructor
    * @param FruitMachine $machine
-   * @param array        $options optional
+   * @param array        $options
    */
-  final public function __construct(FruitMachine $machine, $options = array()) {
+  final public function __construct(FruitMachine $machine, $options) {
     $this->_fruitmachine = $machine;
     $this->_configure($options);
     if (!empty($options['children'])) {
