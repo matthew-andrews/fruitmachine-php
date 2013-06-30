@@ -185,11 +185,14 @@ abstract class AbstractModule {
    * @param array|AbstractModule $children children
    */
   private function _add($children) {
-    $isArray = is_array($children);
+    $isArray = array_values($children) === $children;
 
     foreach ($children as $key => $child) {
-      if (!$isArray) $child->slot = $key;
-      $this->add($child);
+      if (!$isArray) {
+        $this->add($child, $key);
+      } else {
+        $this->add($child);
+      }
     }
   }
 
