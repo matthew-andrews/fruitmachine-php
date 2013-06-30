@@ -27,9 +27,7 @@ $apple->toHTML();
 
 ## Installation
 
-```
-$ composer install fruitmachine-php # coming soon
-```
+Add to your composer.json manually.  To be submitted to packagist soon.
 
 ## Author
 
