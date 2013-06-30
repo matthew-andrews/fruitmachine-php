@@ -111,4 +111,14 @@ class AbstractModuleAddTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals($apple, $layout->slots[2]);
   }
 
+  /**
+   * @covers \FruitMachine\AbstractModule::add
+   */
+  public function test_should_do_nothing_if_passed_nothing() {
+    $apple = Singleton::getInstance()->create('apple');
+    $expected = clone $apple;
+    $actual = $apple->add();
+    $this->assertEquals($expected, $actual);
+  }
+
 }

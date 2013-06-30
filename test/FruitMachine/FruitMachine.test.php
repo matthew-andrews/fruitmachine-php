@@ -9,6 +9,8 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @covers \FruitMachine\FruitMachine::define
+   * @covers \FruitMachine\FruitMachine::create
+   * @covers \FruitMachine\AbstractModule::__construct
    */
   public function test_define_allows_module_to_be_built_via_create() {
     Singleton::getInstance()->define('apple', '\Test\Apple');
@@ -16,6 +18,10 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('\Test\Apple', $apple);
   }
 
+  /**
+   * @covers \FruitMachine\FruitMachine::create
+   * @covers \FruitMachine\AbstractModule::__construct
+   */
   public function test_creating_an_undefined_module_throws_error() {
     $exceptionCaught = false;
     try {

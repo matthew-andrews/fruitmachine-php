@@ -128,13 +128,13 @@ abstract class AbstractModule {
       array_splice($parent->children, $index, 1);
 
       // Remove references from the lookup
-      $parent->removeLookup($this);
+      $parent->_removeLookup($this);
     }
 
     return $this;
   }
 
-  final public function removeLookup($child) {
+  private function _removeLookup($child) {
     $module = $child->module();
 
     // Remove the module lookup

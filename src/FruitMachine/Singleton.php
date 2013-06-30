@@ -17,15 +17,19 @@ class Singleton {
 
   private static $_instance;
 
-  private function __construct() {
-
-  }
+  // @codeCoverageIgnoreStart
+  private function __construct() { }
+  // @codeCoverageIgnoreEnd
 
   public static function getInstance() {
     if (!self::$_instance) {
       self::$_instance = new FruitMachine('\MattAndrews\Model');
     }
     return self::$_instance;
+  }
+
+  public static function reset() {
+    self::$_instance = null;
   }
 
 }
