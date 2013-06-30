@@ -6,7 +6,7 @@ FruitMachine is designed to build rich interactive layouts from modular, reusabl
 
 ```php
 // Define a module
-class Apple extends \FruitMachine\AbstractModule
+class Apple extends \FruitMachine\AbstractModule {
 
   public function template() {
     return 'hello'
