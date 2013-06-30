@@ -42,4 +42,28 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertTrue($exceptionCaught);
   }
 
+  public function test_create_should_be_able_to_understand_json_encodable_array() {
+    $fm = Singleton::getInstance();
+    $fm->define('apple', '\Test\Apple');
+    $fm->define('orange', '\Test\Orange');
+    $fm->define('layout', '\Test\Layout');
+
+    $json = '{
+      "module": "layout",
+      "children": {
+        "1": {
+          "module": "apple"
+        },
+        "2": {
+          "module": "orange"
+        }
+      }
+    }';
+
+    $layout = $fm->create(json_decode($json, true));
+    $this->assertEquals("layout", $layout->module());
+    $this->assertEquals("apple", $layout->slots[1]->module());
+    $this->assertEquals("orange", $layout->slots[2]->module());
+  }
+
 }

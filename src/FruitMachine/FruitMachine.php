@@ -58,17 +58,18 @@ class FruitMachine {
 
   /**
    * Factory method for fruit
-   * @param  String $name    The name of the module to be created
-   * @param  array  $options Options to be passed into the FM Module
+   * @param  string|array $name    The name of the module to be created
+   * @param  array        $options Options to be passed into the FM Module
    * @return AbstractModule  A fully instantiated FM module
    */
   final public function create($name, $options = array()) {
-    if (!isset($this->_fruit[$name])) {
-      throw new ModuleNotDefinedException("Module '$name' specified cannot be found");
+    if (is_array($name)) {
+      $options = $name;
+      $module = $options['module'];
+      unset($options['module']);
+      return $this->create($module, $options);
     }
-
-    $module = new $this->_fruit[$name]($this, $options);
-    return $module;
+    return $this->_create($name, $options);
   }
 
   final public function model(array $data) {
@@ -77,6 +78,15 @@ class FruitMachine {
 
   final public function reset() {
     $this->_fruit = array();
+  }
+
+  private function _create($name, array $options) {
+    if (!isset($this->_fruit[$name])) {
+      throw new ModuleNotDefinedException("Module '$name' specified cannot be found");
+    }
+
+    $module = new $this->_fruit[$name]($this, $options);
+    return $module;
   }
 
 }
