@@ -68,26 +68,34 @@ class FruitMachine {
       $options = $name;
       $module = $options['module'];
       return $this->create($module, $options);
+    } else {
+      $options['module'] = $name;
     }
-    $options['module'] = $name;
-    return $this->_create($name, $options);
-  }
 
-  final public function model(array $data) {
-    return new $this->_model($data);
-  }
-
-  final public function reset() {
-    $this->_fruit = array();
-  }
-
-  private function _create($name, array $options) {
     if (!isset($this->_fruit[$name])) {
       throw new Exception\ModuleNotDefined("Module '$name' specified cannot be found");
     }
 
-    $module = new $this->_fruit[$name]($this, $options);
-    return $module;
+    return new $this->_fruit[$name]($this, $options);
+  }
+
+  /**
+   * Convert a PHP associative array into a model
+   *
+   * @param  array                       $data Data
+   * @return \MattAndrews\ModelInterface       An object of the type passed into the FM's constructor
+   */
+  final public function model(array $data) {
+    return new $this->_model($data);
+  }
+
+  /**
+   * Reset the FM to its original state
+   *
+   * @return void
+   */
+  final public function reset() {
+    $this->_fruit = array();
   }
 
 }
