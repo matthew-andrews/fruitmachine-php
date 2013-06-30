@@ -116,6 +116,12 @@ abstract class AbstractModule {
     });
   }
 
+  /**
+   * Creates a lookup reference for the child view passed.
+   *
+   * @param  string                $key The key to search for
+   * @return string|AbstractModule      The module string or AbstractModule
+   */
   final public function module($key = null) {
     if (func_num_args() === 0) {
       return $this->_module();
