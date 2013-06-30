@@ -15,13 +15,15 @@ class Apple extends \FruitMachine\AbstractModule {
 }
 
 $fm = \FruitMachine\Singleton::getInstance();
+
+// Define a module
 $fm->define('apple', '\Apple');
 
 // Create a module
 $apple = $fm->create('apple');
 
 // Render it
-$apple->toHTML();
+echo $apple->toHTML();
 //=> <div class="apple">hello</div>
 ```
 
