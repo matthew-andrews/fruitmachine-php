@@ -7,6 +7,10 @@ class AbstractModuleClassesTest extends \PHPUnit_Framework_TestCase {
     Singleton::getInstance()->define('apple', '\Test\Apple');
   }
 
+  public function tearDown() {
+    Singleton::getInstance()->reset();
+  }
+
   public function test_should_be_able_to_define_classes_on_the_base_class() {
     $view = Singleton::getInstance()->create('apple');
     $this->assertContains('class="apple foo bar"', $view->toHTML());

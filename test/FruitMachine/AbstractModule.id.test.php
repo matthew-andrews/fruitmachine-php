@@ -8,6 +8,10 @@ class AbstractModuleIdTest extends \PHPUnit_Framework_TestCase {
     Singleton::getInstance()->define('layout', '\Test\Layout');
   }
 
+  public function tearDown() {
+    Singleton::getInstance()->reset();
+  }
+
   public function test_should_return_a_child_by_id() {
     $layout = Singleton::getInstance()->create('layout', array(
       "children" => array(
