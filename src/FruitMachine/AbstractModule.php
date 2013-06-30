@@ -21,14 +21,20 @@ abstract class AbstractModule {
   final public function __construct(FruitMachine $machine, $options = array()) {
     $this->_fruitmachine = $machine;
     $this->_configure($options);
-    if (!empty($options['children'])) $this->_add($options['children']);
+    if (!empty($options['children'])) {
+      $this->_add($options['children']);
+    }
   }
 
   final public function add($child = null, $options = null) {
-    if (!$child) return $this;
+    if (!$child) {
+      return $this;
+    }
 
     // If it's not a Module, make it one.
-    if (!($child instanceof AbstractModule)) $child = $this->_fruitmachine->create($child['module'], $child);
+    if (!($child instanceof AbstractModule)) {
+      $child = $this->_fruitmachine->create($child['module'], $child);
+    }
 
     // Options
     $at = is_array($options) && !empty($options['at'])
@@ -39,7 +45,9 @@ abstract class AbstractModule {
       : (!is_array($options) ? $options : null);
 
     // Remove this view first if it already has a parent
-    if (!empty($child->parent)) $child->remove();
+    if (!empty($child->parent)) {
+      $child->remove();
+    }
 
     // Assign a slot (prefering defined option)
     $slot = $child->slot = !is_null($slot) ? $slot : $child->slot;
@@ -96,7 +104,9 @@ abstract class AbstractModule {
   final public function remove($param1 = array(), $param2 = array()) {
 
     // Don't do anything if the first arg is null
-    if (func_num_args() === 1 && is_null($param1)) return $this;
+    if (func_num_args() === 1 && is_null($param1)) {
+      return $this;
+    }
 
     // Allow view.remove(child[, options])
     // and view.remove([options]);
@@ -176,7 +186,9 @@ abstract class AbstractModule {
    * @param array|AbstractModule $children children
    */
   private function _add($children) {
-    if (!$children) return;
+    if (!$children) {
+      return;
+    }
 
     $isArray = is_array($children);
 
