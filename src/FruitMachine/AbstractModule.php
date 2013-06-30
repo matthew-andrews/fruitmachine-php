@@ -57,12 +57,11 @@ abstract class AbstractModule {
   }
 
   final public function each($fn) {
-    $l = count($this->children);
-    $result;
-
-    for ($i = 0; $i < $l; $i++) {
-      $result = $fn($this->children[$i]);
-      if ($result) return $result;
+    foreach ($this->children as $child) {
+      $result = $fn($child);
+      if ($result) {
+        return $result;
+      }
     }
   }
 
