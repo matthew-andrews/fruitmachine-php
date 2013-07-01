@@ -8,6 +8,10 @@ FruitMachine is designed to build rich interactive layouts from modular, reusabl
 // Define a module
 class Apple extends \FruitMachine\AbstractModule {
 
+  public static function name() {
+    return 'apple';
+  }
+
   public function template() {
     return 'hello'
   }
@@ -17,7 +21,7 @@ class Apple extends \FruitMachine\AbstractModule {
 $fm = \FruitMachine\Singleton::getInstance();
 
 // Define a module
-$fm->define('apple', '\Apple');
+$fm->define('\Apple');
 
 // Create a module
 $apple = $fm->create('apple');
