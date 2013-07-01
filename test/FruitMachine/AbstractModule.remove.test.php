@@ -3,23 +3,26 @@ namespace FruitMachine;
 
 class AbstractModuleRemoveTest extends \PHPUnit_Framework_TestCase {
 
+  private $_fm;
+
   public function setUp() {
-    Singleton::getInstance()->define('\Test\Apple');
-    Singleton::getInstance()->define('\Test\Layout');
-    Singleton::getInstance()->define('\Test\Orange');
+    $this->_fm = Singleton::getInstance();
+    $this->_fm->define('\Test\Apple');
+    $this->_fm->define('\Test\Layout');
+    $this->_fm->define('\Test\Orange');
   }
 
   public function tearDown() {
-    Singleton::getInstance()->reset();
+    $this->_fm->reset();
   }
 
   /**
    * @covers \FruitMachine\AbstractModule::remove
    */
   public function test_should_remove_the_child_passed_from_the_parents_children_array() {
-    $list = Singleton::getInstance()->create('layout');
-    $apple1 = Singleton::getInstance()->create('apple');
-    $apple2 = Singleton::getInstance()->create('apple');
+    $list = $this->_fm->create('layout');
+    $apple1 = $this->_fm->create('apple');
+    $apple2 = $this->_fm->create('apple');
 
     $list
       ->add($apple1)
@@ -34,8 +37,8 @@ class AbstractModuleRemoveTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::remove
    */
   public function test_should_remove_itself_if_called_with_no_arguments() {
-    $list = Singleton::getInstance()->create('layout');
-    $apple = Singleton::getInstance()->create('apple', array("id" => "foo"));
+    $list = $this->_fm->create('layout');
+    $apple = $this->_fm->create('apple', array("id" => "foo"));
 
     $list->add($apple);
     $apple->remove();
@@ -47,8 +50,8 @@ class AbstractModuleRemoveTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::remove
    */
   public function test_should_remove_reference_back_to_parent_view() {
-    $layout = Singleton::getInstance()->create('layout');
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
+    $layout = $this->_fm->create('layout');
+    $apple = $this->_fm->create('apple', array("slot" => 1));
 
     $layout->add($apple);
 
@@ -63,8 +66,8 @@ class AbstractModuleRemoveTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::remove
    */
   public function test_should_remove_slot_reference() {
-    $layout = Singleton::getInstance()->create('layout');
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
+    $layout = $this->_fm->create('layout');
+    $apple = $this->_fm->create('apple', array("slot" => 1));
 
     $layout->add($apple);
 
@@ -79,8 +82,8 @@ class AbstractModuleRemoveTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::remove
    */
   public function test_should_not_remove_itself_if_first_argument_is_null() {
-    $layout = Singleton::getInstance()->create('layout');
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
+    $layout = $this->_fm->create('layout');
+    $apple = $this->_fm->create('apple', array("slot" => 1));
 
     $layout->add($apple);
 

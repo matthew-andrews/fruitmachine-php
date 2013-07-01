@@ -3,15 +3,18 @@ namespace FruitMachine;
 
 class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
 
+  private $_fm;
+
   public function setUp() {
-    Singleton::getInstance()->define('\Test\Apple');
-    Singleton::getInstance()->define('\Test\Orange');
-    Singleton::getInstance()->define('\Test\Pear');
-    Singleton::getInstance()->define('\Test\Layout');
+    $this->_fm = Singleton::getInstance();
+    $this->_fm->define('\Test\Apple');
+    $this->_fm->define('\Test\Orange');
+    $this->_fm->define('\Test\Pear');
+    $this->_fm->define('\Test\Layout');
   }
 
   public function tearDown() {
-    Singleton::getInstance()->reset();
+    $this->_fm->reset();
   }
 
   public function test_should_add_any_children_passed_into_the_constructor() {
@@ -24,7 +27,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
       )
     );
 
-    $view = Singleton::getInstance()->create('apple', array(
+    $view = $this->_fm->create('apple', array(
       "children" => $children
     ));
 
@@ -32,7 +35,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_store_a_reference_to_the_slot_if_passed() {
-    $view = Singleton::getInstance()->create('apple', array(
+    $view = $this->_fm->create('apple', array(
       "children" => array(
         array(
           "module" => "pear",
@@ -50,7 +53,7 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_store_a_reference_to_the_slot_if_slot_is_passed_as_key_of_children_object() {
-    $view = Singleton::getInstance()->create('apple', array(
+    $view = $this->_fm->create('apple', array(
       "children" => array(
         1 => array("module" => "pear"),
         2 => array("module" => "orange")
@@ -63,13 +66,13 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_store_a_reference_to_the_slot_if_the_view_is_instantiated_with_a_slot() {
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
+    $apple = $this->_fm->create('apple', array("slot" => 1));
     $this->assertEquals(1, $apple->slot);
   }
 
   public function test_should_prefer_the_slot_on_the_children_object_in_case_of_conflict() {
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
-    $layout = Singleton::getInstance()->create('layout', array(
+    $apple = $this->_fm->create('apple', array("slot" => 1));
+    $layout = $this->_fm->create('layout', array(
       "children" => array(
         2 => $apple
       )
@@ -79,17 +82,17 @@ class AbstractModuleTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_should_create_a_model() {
-    $view = Singleton::getInstance()->create('apple');
+    $view = $this->_fm->create('apple');
     $this->assertInstanceOf('\MattAndrews\ModelInterface', $view->model);
   }
 
   public function test_should_adopt_the_fmid_if_passed() {
-    $view = Singleton::getInstance()->create("apple", array("fmid" => "1234"));
+    $view = $this->_fm->create("apple", array("fmid" => "1234"));
     $this->assertContains('id="1234"', $view->toHTML());
   }
 
   public function test_each() {
-    $fm = Singleton::getInstance();
+    $fm = $this->_fm;
     $apple1 = $fm->create('apple');
     $apple2 = $fm->create('apple');
     $orange = $fm->create('orange');

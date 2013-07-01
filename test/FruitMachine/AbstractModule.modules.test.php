@@ -4,14 +4,16 @@ namespace FruitMachine;
 class AbstractModuleModulesTest extends \PHPUnit_Framework_TestCase {
 
   private $_view;
+  private $_fm;
 
   public function setUp() {
-    Singleton::getInstance()->define('\Test\Apple');
-    Singleton::getInstance()->define('\Test\Orange');
-    Singleton::getInstance()->define('\Test\Pear');
-    Singleton::getInstance()->define('\Test\Layout');
+    $this->_fm = Singleton::getInstance();
+    $this->_fm->define('\Test\Apple');
+    $this->_fm->define('\Test\Orange');
+    $this->_fm->define('\Test\Pear');
+    $this->_fm->define('\Test\Layout');
 
-    $fm = Singleton::getInstance();
+    $fm = $this->_fm;
     $layout = $fm->create('layout');
     $apple = $fm->create('apple', array("id" => "slot_1"));
     $orange = $fm->create('orange', array("id" => "slot_2"));
@@ -26,7 +28,7 @@ class AbstractModuleModulesTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function tearDown() {
-    Singleton::getInstance()->reset();
+    $this->_fm->reset();
   }
 
   public function test_should_return_all_descendant_views_matching_the_given_module_type() {

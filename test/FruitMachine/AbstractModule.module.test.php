@@ -4,17 +4,19 @@ namespace FruitMachine;
 class AbstractModuleModuleTest extends \PHPUnit_Framework_TestCase {
 
   private $_view;
+  private $_fm;
 
   public function setUp() {
-    Singleton::getInstance()->define('\Test\Apple');
-    Singleton::getInstance()->define('\Test\Orange');
-    Singleton::getInstance()->define('\Test\Pear');
-    Singleton::getInstance()->define('\Test\Layout');
+    $this->_fm = $this->_fm = Singleton::getInstance();
+    $this->_fm->define('\Test\Apple');
+    $this->_fm->define('\Test\Orange');
+    $this->_fm->define('\Test\Pear');
+    $this->_fm->define('\Test\Layout');
 
-    $layout = Singleton::getInstance()->create('layout', array());
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
-    $orange = Singleton::getInstance()->create('orange', array("slot" => 2));
-    $pear = Singleton::getInstance()->create('pear', array("slot" => 3));
+    $layout = $this->_fm->create('layout', array());
+    $apple = $this->_fm->create('apple', array("slot" => 1));
+    $orange = $this->_fm->create('orange', array("slot" => 2));
+    $pear = $this->_fm->create('pear', array("slot" => 3));
 
     $layout
       ->add($apple)
@@ -45,7 +47,7 @@ class AbstractModuleModuleTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_can_find_nested_children() {
-    $layout = Singleton::getInstance()->create('layout', array(
+    $layout = $this->_fm->create('layout', array(
       "children" => array(
         1 => array(
           "module" => 'layout',
@@ -64,7 +66,7 @@ class AbstractModuleModuleTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function tearDown() {
-    Singleton::getInstance()->reset();
+    $this->_fm->reset();
   }
 
 }

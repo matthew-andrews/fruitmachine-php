@@ -3,8 +3,14 @@ namespace FruitMachine;
 
 class FruitMachineTest extends \PHPUnit_Framework_TestCase {
 
+  private $_fm;
+
+  public function setUp() {
+    $this->_fm = Singleton::getInstance();
+  }
+
   public function tearDown() {
-    Singleton::getInstance()->reset();
+    $this->_fm->reset();
   }
 
   /**
@@ -13,8 +19,8 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::__construct
    */
   public function test_define_allows_module_to_be_built_via_create() {
-    Singleton::getInstance()->define('\Test\Apple');
-    $apple = Singleton::getInstance()->create('apple');
+    $this->_fm->define('\Test\Apple');
+    $apple = $this->_fm->create('apple');
     $this->assertInstanceOf('\Test\Apple', $apple);
   }
 
@@ -25,7 +31,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
   public function test_creating_an_undefined_module_throws_error() {
     $exceptionCaught = false;
     try {
-      $apple = Singleton::getInstance()->create('apple');
+      $apple = $this->_fm->create('apple');
     } catch (Exception\ModuleNotDefined $exception) {
       $exceptionCaught = true;
     }
@@ -35,7 +41,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
   public function test_defining_an_non_existent_class_throws_error() {
     $exceptionCaught = false;
     try {
-      $apple = Singleton::getInstance()->define('\Test\Silly');
+      $apple = $this->_fm->define('\Test\Silly');
     } catch (Exception\ModuleNotDefined $exception) {
       $exceptionCaught = true;
     }
@@ -43,7 +49,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function test_create_should_be_able_to_understand_json_encodable_array() {
-    $fm = Singleton::getInstance();
+    $fm = $this->_fm;
     $fm->define('\Test\Apple');
     $fm->define('\Test\Orange');
     $fm->define('\Test\Layout');

@@ -3,20 +3,23 @@ namespace FruitMachine;
 
 class AbstractModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
 
+  private $_fm;
+
   public function setUp() {
-    Singleton::getInstance()->define('\Test\Layout');
-    Singleton::getInstance()->define('\Test\Apple');
+    $this->_fm = Singleton::getInstance();
+    $this->_fm->define('\Test\Layout');
+    $this->_fm->define('\Test\Apple');
   }
 
   public function tearDown() {
-    Singleton::getInstance()->reset();
+    $this->_fm->reset();
   }
 
   /**
    * @covers \FruitMachine\AbstractModule::toHTML
    */
   public function test_should_return_a_string() {
-    $layout = Singleton::getInstance()->create('layout');
+    $layout = $this->_fm->create('layout');
     $html = $layout->toHTML();
     $this->assertTrue(is_string($html));
   }
@@ -25,8 +28,8 @@ class AbstractModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::toHTML
    */
   public function test_should_print_the_child_html_into_the_corresponding_slot() {
-    $apple = Singleton::getInstance()->create('apple', array("slot" => 1));
-    $layout = Singleton::getInstance()->create('layout', array(
+    $apple = $this->_fm->create('apple', array("slot" => 1));
+    $layout = $this->_fm->create('layout', array(
       "children" => array(
         $apple
       )
@@ -46,8 +49,8 @@ class AbstractModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::toHTML
    */
   public function test_should_print_the_child_html_by_id_if_no_slot_is_found() {
-    $apple = Singleton::getInstance()->create('apple', array("id" => 1));
-    $layout = Singleton::getInstance()->create('layout', array(
+    $apple = $this->_fm->create('apple', array("id" => 1));
+    $layout = $this->_fm->create('layout', array(
       "children" => array($apple)
     ));
 
@@ -61,7 +64,7 @@ class AbstractModuleToHTMLTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\AbstractModule::toHTML
    */
   public function test_should_fallback_to_printing_children_by_id_if_no_slot_is_present() {
-    $layout = Singleton::getInstance()->create('layout', array(
+    $layout = $this->_fm->create('layout', array(
       "children" => array(
         array(
           "module" => 'apple',
