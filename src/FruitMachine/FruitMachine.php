@@ -1,15 +1,24 @@
 <?php
 namespace FruitMachine;
 
-class FruitMachine {
+/**
+ * Fruit Machine
+ *
+ * Extend this, use it directly or use the Singleton
+ *
+ * @author Matt Andrews <matt@mattandre.ws>
+ * @copyright The Financial Times Limited [All Rights Reserved]
+ */
 
-  private $_model;
-  private $_fruit;
+class FruitMachine {
 
   public $config = array(
     'templateIterator' => 'children',
     'templateInstance' => 'child'
   );
+
+  private $_model;
+  private $_modules;
 
   /**
    * Creates a fruitmachine
@@ -53,7 +62,7 @@ class FruitMachine {
       throw new Exception\ModuleNotDefined("Class '$class' passed into FruitMachine#define cannot be found");
     }
 
-    $this->_fruit[$class::name()] = $class;
+    $this->_modules[$class::name()] = $class;
   }
 
   /**
@@ -71,11 +80,11 @@ class FruitMachine {
       return $this->create($name, $options);
     }
 
-    if (!isset($this->_fruit[$name])) {
+    if (!isset($this->_modules[$name])) {
       throw new Exception\ModuleNotDefined("Module '$name' specified cannot be found");
     }
 
-    return new $this->_fruit[$name]($this, $options);
+    return new $this->_modules[$name]($this, $options);
   }
 
   /**
@@ -94,7 +103,7 @@ class FruitMachine {
    * @return void
    */
   final public function reset() {
-    $this->_fruit = array();
+    $this->_modules = array();
   }
 
 }

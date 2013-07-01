@@ -2,7 +2,10 @@
 namespace FruitMachine\Exception;
 
 /**
- * ModuleNotDefined
+ * Module Not Defined
+ *
+* @author Matt Andrews <matt@mattandre.ws>
+ * @copyright The Financial Times Limited [All Rights Reserved]
  */
 
 class ModelNotFound extends \Exception {

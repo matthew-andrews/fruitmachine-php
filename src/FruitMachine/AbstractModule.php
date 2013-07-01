@@ -1,7 +1,16 @@
 <?php
 namespace FruitMachine;
 
-abstract class AbstractModule {
+/**
+ * Abstract Module
+ *
+ * Your project's modules should extend from this
+ *
+ * @author Matt Andrews <matt@mattandre.ws>
+ * @copyright The Financial Times Limited [All Rights Reserved]
+ */
+
+abstract class AbstractModule implements NamedModuleInterface {
 
   public $children = array();
   public $classes = array();
@@ -123,7 +132,7 @@ abstract class AbstractModule {
    */
   final public function module($key = null) {
     if (func_num_args() === 0) {
-      return static::name();
+      return $this::name();
     }
 
     if (isset($this->_modules[$key]) && isset($this->_modules[$key][0])) {
@@ -254,8 +263,6 @@ abstract class AbstractModule {
   }
 
   abstract public function template(array $data);
-
-  abstract public static function name();
 
   /**
    * A private add method that accepts a list of children.
