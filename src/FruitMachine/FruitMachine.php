@@ -72,7 +72,7 @@ class FruitMachine {
    * @param  array        $options Options to be passed into the FM Module
    * @return AbstractModule  A fully instantiated FM module
    */
-  final public function create($name, $options = array()) {
+  final public function create($name, array $options = array()) {
     if (is_array($name)) {
       $options = $name;
       $name = $options['module'];

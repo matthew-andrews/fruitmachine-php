@@ -43,7 +43,7 @@ abstract class AbstractModule implements NamedModuleInterface {
    * @param FruitMachine $machine
    * @param array        $options
    */
-  final public function __construct(FruitMachine $machine, $options) {
+  final public function __construct(FruitMachine $machine, array $options) {
     $this->_fruitmachine = $machine;
     $this->_configure($options);
     if (!empty($options['children'])) {
@@ -160,7 +160,7 @@ abstract class AbstractModule implements NamedModuleInterface {
     // Then loop each child and run the
     // same opperation, appending the result
     // onto the list.
-    $this->each(function($view) use (&$list, $key) {
+    $this->each(function(AbstractModule $view) use (&$list, $key) {
       $list = $list + $view->modules($key);
     });
 
@@ -200,7 +200,7 @@ abstract class AbstractModule implements NamedModuleInterface {
     return $this;
   }
 
-  private function removeLookup($child) {
+  private function removeLookup(AbstractModule $child) {
     $module = $child->module();
 
     // Remove the module lookup
@@ -269,7 +269,7 @@ abstract class AbstractModule implements NamedModuleInterface {
    *
    * @param array|AbstractModule $children children
    */
-  private function _add($children) {
+  private function _add(array $children) {
     $isArray = array_values($children) === $children;
 
     foreach ($children as $key => $child) {
@@ -281,7 +281,7 @@ abstract class AbstractModule implements NamedModuleInterface {
     }
   }
 
-  private function _addLookup($child) {
+  private function _addLookup(AbstractModule $child) {
     $module = $child->module();
 
     // Add a lookup for module
@@ -305,7 +305,7 @@ abstract class AbstractModule implements NamedModuleInterface {
    * @param  array $options An array of options
    * @return void
    */
-  private function _configure($options) {
+  private function _configure(array $options) {
 
     // Setup properties
     $this->_id = !empty($options['id']) ? $options['id'] : Util::uniqueId();
