@@ -41,7 +41,7 @@ class FruitMachine {
    * @throws Exception\ModuleNotDefined If the class described in $class does not exist
    * @return void
    */
-  final public function define($name, $class) {
+  final public function define($class) {
 
     // Manually trigger the autoloading of the specified class...
     if (!class_exists($class)) {
@@ -53,7 +53,7 @@ class FruitMachine {
       throw new Exception\ModuleNotDefined("Class '$class' passed into FruitMachine#define cannot be found");
     }
 
-    $this->_fruit[$name] = $class;
+    $this->_fruit[$class::name()] = $class;
   }
 
   /**

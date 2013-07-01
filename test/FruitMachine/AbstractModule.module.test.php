@@ -6,10 +6,10 @@ class AbstractModuleModuleTest extends \PHPUnit_Framework_TestCase {
   private $_view;
 
   public function setUp() {
-    Singleton::getInstance()->define('apple', '\Test\Apple');
-    Singleton::getInstance()->define('orange', '\Test\Orange');
-    Singleton::getInstance()->define('pear', '\Test\Pear');
-    Singleton::getInstance()->define('layout', '\Test\Layout');
+    Singleton::getInstance()->define('\Test\Apple');
+    Singleton::getInstance()->define('\Test\Orange');
+    Singleton::getInstance()->define('\Test\Pear');
+    Singleton::getInstance()->define('\Test\Layout');
 
     $layout = Singleton::getInstance()->create('layout', array());
     $apple = Singleton::getInstance()->create('apple', array("slot" => 1));

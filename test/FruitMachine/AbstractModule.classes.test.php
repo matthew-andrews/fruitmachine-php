@@ -4,7 +4,7 @@ namespace FruitMachine;
 class AbstractModuleClassesTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
-    Singleton::getInstance()->define('apple', '\Test\Apple');
+    Singleton::getInstance()->define('\Test\Apple');
   }
 
   public function tearDown() {

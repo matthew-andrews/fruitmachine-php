@@ -256,6 +256,8 @@ abstract class AbstractModule {
 
   abstract public function template(array $data);
 
+  abstract public static function name();
+
   /**
    * A private add method that accepts a list of children.
    *
