@@ -61,9 +61,11 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     }';
 
     $layout = $fm->create(json_decode($json, true));
-    $this->assertEquals("layout", $layout->module());
-    $this->assertEquals("apple", $layout->slots[1]->module());
-    $this->assertEquals("orange", $layout->slots[2]->module());
+    $this->assertEquals("layout", $layout::name());
+    $slot1 = $layout->slots[1];
+    $slot2 = $layout->slots[2];
+    $this->assertEquals("apple", $slot1::name());
+    $this->assertEquals("orange", $slot2::name());
   }
 
   public function test_can_build_your_own_fruitmachines() {

@@ -66,10 +66,9 @@ class FruitMachine {
   final public function create($name, $options = array()) {
     if (is_array($name)) {
       $options = $name;
-      $module = $options['module'];
-      return $this->create($module, $options);
-    } else {
-      $options['module'] = $name;
+      $name = $options['module'];
+      unset($options['module']);
+      return $this->create($name, $options);
     }
 
     if (!isset($this->_fruit[$name])) {

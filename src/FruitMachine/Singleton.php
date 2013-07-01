@@ -21,14 +21,14 @@ class Singleton {
   // @codeCoverageIgnoreEnd
 
   public static function getInstance() {
-    if (!self::$_instance) {
-      self::$_instance = new FruitMachine('\MattAndrews\Model');
+    if (!static::$_instance) {
+      static::$_instance = new FruitMachine('\MattAndrews\Model');
     }
-    return self::$_instance;
+    return static::$_instance;
   }
 
   public static function reset() {
-    self::$_instance = null;
+    static::$_instance = null;
   }
 
 }

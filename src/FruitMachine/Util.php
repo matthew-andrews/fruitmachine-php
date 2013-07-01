@@ -17,7 +17,7 @@ class Util {
     $prefix = is_null($prefix)
       ? $prefix
       : 'id';
-    return $prefix . ((++self::$i) * round(rand() / getrandmax() * 100000));
+    return $prefix . ((++static::$i) * round(rand() / getrandmax() * 100000));
   }
 
 }
