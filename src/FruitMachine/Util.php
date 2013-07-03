@@ -4,8 +4,6 @@ namespace FruitMachine;
 /**
  * Util
  *
- * TODO: Move this back into AbstractModule?
- *
  * @author Matt Andrews <matt@mattandre.ws>
  * @copyright The Financial Times Limited [All Rights Reserved]
  */
