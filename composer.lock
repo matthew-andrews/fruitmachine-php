@@ -7,11 +7,11 @@
     "packages": [
         {
             "name": "MattAndrews/model-php",
-            "version": "v0.0.4",
+            "version": "v0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthew-andrews/model-php.git",
-                "reference": "v0.0.4"
+                "reference": "v0.0.5"
             },
             "require-dev": {
                 "phpunit/php-code-coverage": "~1.2.10",
@@ -31,7 +31,7 @@
                 }
             ],
             "description": "A PHP port of @wilsonpage's Model",
-            "time": "2013-07-04 01:07:07"
+            "time": "2013-07-04 20:33:30"
         }
     ],
     "packages-dev": [
