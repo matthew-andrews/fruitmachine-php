@@ -107,7 +107,7 @@ class FruitMachine {
    * @param  array                       $data Data
    * @return \MattAndrews\ModelInterface An object of the type passed into the FM's constructor
    */
-  final public function model(array $data) {
+  final public function model($data) {
     if (is_a($data, $this->_model)) {
       return $data;
     }

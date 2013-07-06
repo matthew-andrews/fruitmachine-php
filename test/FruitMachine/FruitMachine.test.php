@@ -115,4 +115,15 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('\MattAndrews\Model', $apple->model);
   }
 
+  public function test_model_() {
+    $this->_fm->define('\Test\Apple');
+    $model = new \MattAndrews\Model(array(
+        'collection' => array(1, 2, 3)
+      ));
+    $apple = $this->_fm->create('apple', array(
+      'model' => $model
+    ));
+    $this->assertInstanceOf('\MattAndrews\Model', $apple->model);
+  }
+
 }
