@@ -104,4 +104,15 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertTrue($thrown);
   }
 
+  public function test_model_always_instantiated() {
+    $myFM = new \Test\MyFruitMachine('\Test\MyModel');
+    $myFM->define('\Test\Apple');
+    $apple = $myFM->create('apple', array(
+      'model' => array(
+        'collection' => array(1, 2, 3))
+      )
+    );
+    $this->assertInstanceOf('\MattAndrews\Model', $apple->model);
+  }
+
 }

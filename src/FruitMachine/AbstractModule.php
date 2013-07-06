@@ -317,10 +317,8 @@ abstract class AbstractModule implements NamedModuleInterface {
       ? $options['model']
       : (isset($options['data']) ? $options['data'] : array());
 
-    // Would json_encode turn array into a JS array (or object)?
-    $this->model = array_values($model) === $model
-      ? $this->_fruitmachine->model($model)
-      : $model;
+    // Ensure model is a model
+    $this->model = $this->_fruitmachine->model($model);
   }
 
   /**

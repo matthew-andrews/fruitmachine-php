@@ -108,6 +108,9 @@ class FruitMachine {
    * @return \MattAndrews\ModelInterface An object of the type passed into the FM's constructor
    */
   final public function model(array $data) {
+    if (is_a($data, $this->_model)) {
+      return $data;
+    }
     return new $this->_model($data);
   }
 
