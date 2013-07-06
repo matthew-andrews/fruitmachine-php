@@ -174,33 +174,27 @@ abstract class AbstractModule implements NamedModuleInterface {
       return $this;
     }
 
-    // Allow view.remove(child[, options])
-    // and view.remove([options]);
+    // Allow view.remove(child[, options]) and view.remove([options]);
     if ($param1 instanceof AbstractModule) {
       return $param1->remove($param2);
     }
 
-    // Options and aliases
-    $options = $param1;
-    $parent = $this->parent;
-
-    // Unless stated otherwise,
-    // remove the view element
-    // from its parent node.
-    if ($parent) {
+    // Unless stated otherwise, remove the view element from its
+    // parent node.
+    if ($this->parent) {
 
       // Remove reference from views array
-      $index = array_search($this, $parent->children, true);
-      array_splice($parent->children, $index, 1);
+      $index = array_search($this, $this->parent->children, true);
+      array_splice($this->parent->children, $index, 1);
 
       // Remove references from the lookup
-      $parent->removeLookup($this);
+      $this->parent->removeLookup($this);
     }
 
     return $this;
   }
 
-  private function removeLookup(AbstractModule $child) {
+  public function removeLookup(AbstractModule $child) {
     $module = $child->module();
 
     // Remove the module lookup
