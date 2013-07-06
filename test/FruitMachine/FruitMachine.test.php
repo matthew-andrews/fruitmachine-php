@@ -25,6 +25,19 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
+   * @covers \FruitMachine\FruitMachine::define
+   * @covers \FruitMachine\FruitMachine::create
+   * @covers \FruitMachine\AbstractModule::__construct
+   */
+  public function test_define_allows_accepts_array() {
+    $this->_fm->define(array('\Test\Apple', '\Test\Orange'));
+    $apple = $this->_fm->create('apple');
+    $orange = $this->_fm->create('orange');
+    $this->assertInstanceOf('\Test\Apple', $apple);
+    $this->assertInstanceOf('\Test\Orange', $orange);
+  }
+
+  /**
    * @covers \FruitMachine\FruitMachine::create
    * @covers \FruitMachine\AbstractModule::__construct
    */

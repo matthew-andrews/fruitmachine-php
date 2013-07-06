@@ -45,12 +45,11 @@ class FruitMachine {
   /**
    * Defines a module
    *
-   * @param  String $name  The name of the fruit being defined
-   * @param  String $class The name of the PHP classname that the fruit corresponds to
+   * @param  string $class The name of the PHP classname that the fruit corresponds to
    * @throws Exception\ModuleNotDefined If the class described in $class does not exist
    * @return void
    */
-  final public function define($class) {
+  private function _define($class) {
 
     // Manually trigger the autoloading of the specified class...
     if (!class_exists($class)) {
@@ -63,6 +62,21 @@ class FruitMachine {
     }
 
     $this->_modules[$class::name()] = $class;
+  }
+
+  /**
+   * Defines a module
+   *
+   * @param string|array $class A string (or array of strings) of template(s) to define
+   * @throws Exception\ModuleNotDefined If a class doesn't exist
+   */
+  final public function define($classes) {
+    if (!is_array($classes)) {
+      $classes = array($classes);
+    }
+    foreach ($classes as $class) {
+      $this->_define($class);
+    }
   }
 
   /**
