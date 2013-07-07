@@ -10,7 +10,7 @@ namespace FruitMachine;
  * @copyright The Financial Times Limited [All Rights Reserved]
  */
 
-abstract class AbstractModule implements NamedModuleInterface {
+abstract class AbstractModule {
 
   public $children = array();
   public $classes = array();
@@ -25,6 +25,12 @@ abstract class AbstractModule implements NamedModuleInterface {
   private $_ids = array();
   private $_id;
   private $_fmid;
+
+  /**
+   * The name of the module
+   * @var string
+   */
+  protected $_module;
 
   /**
    * Module constructor
@@ -132,7 +138,7 @@ abstract class AbstractModule implements NamedModuleInterface {
    */
   final public function module($key = null) {
     if (func_num_args() === 0) {
-      return $this::name();
+      return $this->_module;
     }
 
     if (isset($this->_modules[$key]) && isset($this->_modules[$key][0])) {
@@ -165,6 +171,13 @@ abstract class AbstractModule implements NamedModuleInterface {
     });
 
     return $list;
+  }
+
+  public function name() {
+    if (isset($this)) {
+      return $this->_module;
+    }
+    return self::$name;
   }
 
   final public function remove($param1 = array(), $param2 = array()) {
@@ -309,6 +322,7 @@ abstract class AbstractModule implements NamedModuleInterface {
       ? $options['classes']
       : (isset($this->classes) ? $this->classes : array());
     $this->slot = !empty($options['slot']) ? $options['slot'] : null;
+    $this->_module = !empty($options['module']) ? $options['module'] : self::$name;
 
     // Use the model passed in,
     // or create a model from

@@ -80,11 +80,11 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     }';
 
     $layout = $fm->create(json_decode($json, true));
-    $this->assertEquals("layout", $layout::name());
+    $this->assertEquals("layout", $layout->name());
     $slot1 = $layout->slots[1];
     $slot2 = $layout->slots[2];
-    $this->assertEquals("apple", $slot1::name());
-    $this->assertEquals("orange", $slot2::name());
+    $this->assertEquals("apple", $slot1->name());
+    $this->assertEquals("orange", $slot2->name());
   }
 
   public function test_can_build_your_own_fruitmachines() {
@@ -115,7 +115,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('\MattAndrews\Model', $apple->model);
   }
 
-  public function test_model_() {
+  public function test_model_already_instantiated() {
     $this->_fm->define('\Test\Apple');
     $model = new \MattAndrews\Model(array(
         'collection' => array(1, 2, 3)
@@ -124,6 +124,30 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
       'model' => $model
     ));
     $this->assertInstanceOf('\MattAndrews\Model', $apple->model);
+  }
+
+  public function test_should_be_able_two_define_same_module_twice() {
+
+    // Default
+    $this->_fm->define('\Test\Apple');
+
+    // Simple
+    $this->_fm->define('\Test\Apple', 'crabapple');
+
+    // Array
+    $this->_fm->define(array(
+        'toffee-apple' => '\Test\Apple',
+        'apple-pie' => '\Test\Apple'
+      ));
+
+    $apple = $this->_fm->create('crabapple');
+    $this->assertEquals('crabapple', $apple->name());
+
+    $apple = $this->_fm->create('toffee-apple');
+    $this->assertEquals('toffee-apple', $apple->name());
+
+    $apple = $this->_fm->create('apple-pie');
+    $this->assertEquals('apple-pie', $apple->name());
   }
 
 }

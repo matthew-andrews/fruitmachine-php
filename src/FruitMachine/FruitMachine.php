@@ -46,10 +46,11 @@ class FruitMachine {
    * Defines a module
    *
    * @param  string $class The name of the PHP classname that the fruit corresponds to
+   * @param  string $name  The internal name of the module
    * @throws Exception\ModuleNotDefined If the class described in $class does not exist
    * @return void
    */
-  private function _define($class) {
+  private function _define($class, $name) {
 
     // Manually trigger the autoloading of the specified class...
     if (!class_exists($class)) {
@@ -61,7 +62,12 @@ class FruitMachine {
       throw new Exception\ModuleNotDefined("Class '$class' passed into FruitMachine#define cannot be found");
     }
 
-    $this->_modules[$class::name()] = $class;
+    // Fallback to default name if $name is null
+    $name = $name === null
+      ? $class::$name
+      : $name;
+
+    $this->_modules[$name] = $class;
   }
 
   /**
@@ -70,12 +76,15 @@ class FruitMachine {
    * @param string|array $class A string (or array of strings) of template(s) to define
    * @throws Exception\ModuleNotDefined If a class doesn't exist
    */
-  final public function define($classes) {
+  final public function define($classes, $name = 0) {
     if (!is_array($classes)) {
-      $classes = array($classes);
+      $classes = array($name => $classes);
     }
-    foreach ($classes as $class) {
-      $this->_define($class);
+    foreach ($classes as $name => $class) {
+      if (!is_string($name)) {
+        $name = null;
+      }
+      $this->_define($class, $name);
     }
   }
 
@@ -90,8 +99,9 @@ class FruitMachine {
     if (is_array($name)) {
       $options = $name;
       $name = $options['module'];
-      unset($options['module']);
       return $this->create($name, $options);
+    } else {
+      $options['module'] = $name;
     }
 
     if (!isset($this->_modules[$name])) {
