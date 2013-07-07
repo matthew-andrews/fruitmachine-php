@@ -17,6 +17,7 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
    * @covers \FruitMachine\FruitMachine::define
    * @covers \FruitMachine\FruitMachine::create
    * @covers \FruitMachine\AbstractModule::__construct
+   * @covers \FruitMachine\AbstractModule::name
    */
   public function test_define_allows_module_to_be_built_via_create() {
     $this->_fm->define('\Test\Apple');

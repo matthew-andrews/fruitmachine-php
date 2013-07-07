@@ -174,10 +174,7 @@ abstract class AbstractModule {
   }
 
   public function name() {
-    if (isset($this)) {
-      return $this->_module;
-    }
-    return self::$name;
+    return $this->_module;
   }
 
   final public function remove($param1 = array(), $param2 = array()) {
