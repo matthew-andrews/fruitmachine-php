@@ -8,9 +8,7 @@ FruitMachine is designed to build rich interactive layouts from modular, reusabl
 // Define a module
 class Apple extends \FruitMachine\AbstractModule {
 
-  public static function name() {
-    return 'apple';
-  }
+  public static $name = 'apple';
 
   public function template() {
     return 'hello'
