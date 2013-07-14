@@ -76,7 +76,7 @@ class FruitMachine {
    * @param string|array $class A string (or array of strings) of template(s) to define
    * @throws Exception\ModuleNotDefined If a class doesn't exist
    */
-  final public function define($classes, $name = null) {
+  final public function define($classes, $name = false) {
     if (!is_array($classes)) {
       $classes = array($name => $classes);
     }
