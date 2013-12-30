@@ -7,7 +7,7 @@
     "phpmd/phpmd" : "1.4.*"
   },
   "require": {
-    "mattandrews/model-php": "*"
+    "mattandrews/model-php": "~0.0.6"
   },
   "repositories": [
     {
