@@ -12,6 +12,8 @@ namespace FruitMachine;
 
 class FruitMachine {
 
+  const DEFAULT_MODULE = 1; 
+
   public $config = array(
     'templateIterator' => 'children',
     'templateInstance' => 'child'
@@ -62,8 +64,8 @@ class FruitMachine {
       throw new Exception\ModuleNotDefined("Class '$class' passed into FruitMachine#define cannot be found");
     }
 
-    // Fallback to default name if $name is null
-    $name = $name === null
+    // Fallback to default name if $name is false
+    $name = $name === false
       ? $class::$name
       : $name;
 
@@ -81,8 +83,8 @@ class FruitMachine {
       $classes = array($name => $classes);
     }
     foreach ($classes as $name => $class) {
-      if (!is_string($name)) {
-        $name = null;
+      if (!is_string($name) && $name !== FruitMachine::DEFAULT_MODULE) {
+        $name = false;
       }
       $this->_define($class, $name);
     }
@@ -102,6 +104,10 @@ class FruitMachine {
       return $this->create($name, $options);
     } else {
       $options['module'] = $name;
+    }
+
+    if (!isset($this->_modules[$name])) {
+      $name = FruitMachine::DEFAULT_MODULE;
     }
 
     if (!isset($this->_modules[$name])) {
