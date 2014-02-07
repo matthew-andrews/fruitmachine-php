@@ -165,12 +165,14 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $apple = $this->_fm->create('apple');
     $cabbage = $this->_fm->create('cabbage');
     $orange = $this->_fm->create('orange');
+    $pear = $this->_fm->create('pear');
     $notAPear = $this->_fm->create('not-a-pear');
     $capitals = $this->_fm->create('CAPITALS');
 
     $this->assertInstanceOf('\Test\Apple', $apple);
     $this->assertInstanceOf('\Test\Apple', $cabbage);
     $this->assertInstanceOf('\Test\Orange', $capitals);
+    $this->assertInstanceOf('\Test\Apple', $pear);
 
     // Prefer explicitly named modules over regex matched modules
     $this->assertInstanceOf('\Test\Orange', $orange);
