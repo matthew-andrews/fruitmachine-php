@@ -151,4 +151,32 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals('apple-pie', $apple->name());
   }
 
+  /**
+   * @covers \FruitMachine\FruitMachine::define
+   * @covers \FruitMachine\FruitMachine::create
+   * @covers \FruitMachine\AbstractModule::__construct
+   */
+  public function test_modules_can_be_defined_with_regexes_for_names() {
+    $this->_fm->define('\Test\Orange', '/[A-Z]+/');
+    $this->_fm->define('\Test\Apple', '/.*/');
+    $this->_fm->define('\Test\Orange');
+    $this->_fm->define('\Test\Pear', 'not-a-pear');
+
+    $apple = $this->_fm->create('apple');
+    $cabbage = $this->_fm->create('cabbage');
+    $orange = $this->_fm->create('orange');
+    $pear = $this->_fm->create('pear');
+    $notAPear = $this->_fm->create('not-a-pear');
+    $capitals = $this->_fm->create('CAPITALS');
+
+    $this->assertInstanceOf('\Test\Apple', $apple);
+    $this->assertInstanceOf('\Test\Apple', $cabbage);
+    $this->assertInstanceOf('\Test\Orange', $capitals);
+    $this->assertInstanceOf('\Test\Apple', $pear);
+
+    // Prefer explicitly named modules over regex matched modules
+    $this->assertInstanceOf('\Test\Orange', $orange);
+    $this->assertInstanceOf('\Test\Pear', $notAPear);
+  }
+
 }

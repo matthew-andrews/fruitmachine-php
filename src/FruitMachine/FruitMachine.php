@@ -19,6 +19,7 @@ class FruitMachine {
 
   private $_model;
   private $_modules;
+  private $_patterns;
 
   /**
    * Creates a fruitmachine
@@ -62,18 +63,24 @@ class FruitMachine {
       throw new Exception\ModuleNotDefined("Class '$class' passed into FruitMachine#define cannot be found");
     }
 
-    // Fallback to default name if $name is null
-    $name = $name === null
+    // Fallback to default name if $name is false
+    $name = $name === false
       ? $class::$name
       : $name;
 
-    $this->_modules[$name] = $class;
+    // Assume $name starting with a slash is regex
+    if ($name[0] === '/') {
+      $this->_patterns[$name] = $class;
+    } else {
+      $this->_modules[$name] = $class;
+    }
   }
 
   /**
    * Defines a module
    *
    * @param string|array $class A string (or array of strings) of template(s) to define
+   * @param string A string or regular expression to alias the module with
    * @throws Exception\ModuleNotDefined If a class doesn't exist
    */
   final public function define($classes, $name = false) {
@@ -82,7 +89,7 @@ class FruitMachine {
     }
     foreach ($classes as $name => $class) {
       if (!is_string($name)) {
-        $name = null;
+        $name = false;
       }
       $this->_define($class, $name);
     }
@@ -96,6 +103,7 @@ class FruitMachine {
    * @return AbstractModule  A fully instantiated FM module
    */
   final public function create($name, array $options = array()) {
+    $class = null;
     if (is_array($name)) {
       $options = $name;
       $name = $options['module'];
@@ -104,11 +112,22 @@ class FruitMachine {
       $options['module'] = $name;
     }
 
-    if (!isset($this->_modules[$name])) {
+    if (isset($this->_modules[$name])) {
+      $class = $this->_modules[$name];
+    } else {
+      foreach($this->_patterns as $pattern => $match) {
+        if (preg_match($pattern, $name)) {
+          $class = $match;
+          break;
+	}
+      }
+    }
+
+    if ($class === null) {
       throw new Exception\ModuleNotDefined("Module '$name' specified cannot be found");
     }
 
-    return new $this->_modules[$name]($this, $options);
+    return new $class($this, $options);
   }
 
   /**
@@ -131,6 +150,7 @@ class FruitMachine {
    */
   final public function reset() {
     $this->_modules = array();
+    $this->_patterns = array();
   }
 
 }
