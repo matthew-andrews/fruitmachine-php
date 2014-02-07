@@ -31,7 +31,10 @@ echo $apple->toHTML();
 
 ## Installation
 
-Add to your composer.json manually.  To be submitted to packagist soon.
+To install from packagist either add `mattandrews/fruitmachine` to your project's `composer.json` file or enter the following on the command line:-
+```
+composer require mattandrews/fruitmachine
+```
 
 ## Compatability
 
