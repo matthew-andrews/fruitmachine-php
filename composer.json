@@ -1,5 +1,5 @@
 {
-  "name": "mattandrews/fruitmachine-php",
+  "name": "mattandrews/fruitmachine",
   "description": "A PHP port of @FTLabs's FruitMachine",
   "require-dev": {
     "phpunit/phpunit": "3.7.*",
@@ -7,14 +7,8 @@
     "phpmd/phpmd" : "1.4.*"
   },
   "require": {
-    "mattandrews/model-php": "~0.0.6"
+    "mattandrews/model": "~0.0.7"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/matthew-andrews/model-php.git"
-    }
-  ],
   "authors": [
     {
       "name": "Matt Andrews",
@@ -27,5 +21,6 @@
       "FruitMachine\\": "src/",
       "Test\\": "test/src"
     }
-  }
+  },
+  "license": "MIT"
 }
