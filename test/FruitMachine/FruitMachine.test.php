@@ -179,4 +179,20 @@ class FruitMachineTest extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('\Test\Pear', $notAPear);
   }
 
+  /**
+   * @covers \FruitMachine\FruitMachine::define
+   * @covers \FruitMachine\FruitMachine::create
+   * @covers \FruitMachine\AbstractModule::__construct
+   */
+  public function test_modules_can_be_defined_with_regexes_with_any_delimiter() {
+    $this->_fm->define('\Test\Orange', '~[A-Z]+~');
+    $this->_fm->define('\Test\Apple', '%.*%');
+
+    $lowercase = $this->_fm->create('lowercase');
+    $capitals = $this->_fm->create('CAPITALS');
+
+    $this->assertInstanceOf('\Test\Apple', $lowercase);
+    $this->assertInstanceOf('\Test\Orange', $capitals);
+  }
+
 }

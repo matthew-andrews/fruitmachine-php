@@ -68,8 +68,8 @@ class FruitMachine {
       ? $class::$name
       : $name;
 
-    // Assume $name starting with a slash is regex
-    if ($name[0] === '/') {
+    // Test name as a potential regex - supress errors in case it fails
+    if (false !== @preg_match($name, null)) {
       $this->_patterns[$name] = $class;
     } else {
       $this->_modules[$name] = $class;
