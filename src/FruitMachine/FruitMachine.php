@@ -114,7 +114,6 @@ class FruitMachine {
 
     if (isset($this->_modules[$name])) {
       $class = $this->_modules[$name];
-
     } else {
       foreach($this->_patterns as $pattern => $match) {
         if (preg_match($pattern, $name)) {
