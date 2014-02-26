@@ -30,7 +30,7 @@ class FruitMachine {
     $this->reset();
 
     // If it isn't already loaded trigger the autoloading of model class
-    spl_autoload_call($model);
+    class_exists($model, true);
 
     // ... and throw an exception if it wasn't found
     if (!class_exists($model)) {
