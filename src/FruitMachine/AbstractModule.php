@@ -348,12 +348,16 @@ abstract class AbstractModule {
     $attrs['id'] = $this->_fmid;
 
     array_walk($attrs, function($v, $k) use (&$attrs) {
-      $attrs[$k] = sprintf('%s="%s"', $k, $v);
+      $attrs[$k] = sprintf('%s="%s"', $this->_encodeHTML($k), $this->_encodeHTML($v));
     });
 
     return '<'. $this->tag . ' ' . implode(' ', $attrs) . '>'
       . $html
       . '</' . $this->tag . '>';
+  }
+
+  private function _encodeHTML($html) {
+    return htmlspecialchars($html, ENT_COMPAT, 'UTF-8');
   }
 
   /**
