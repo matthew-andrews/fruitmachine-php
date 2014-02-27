@@ -16,8 +16,9 @@ class AbstractModuleClassesTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function assertClasses(array $classes, $html) {
-    array_walk($classes, function($v) use ($html) {
-      $this->assertRegExp('/class="[^"]*' . preg_quote($v) . '[^"]*"/', $html);
+    $that = $this;
+    array_walk($classes, function($v) use (&$that, $html) {
+      $that->assertRegExp('/class="[^"]*' . preg_quote($v) . '[^"]*"/', $html);
     });
   }
 
