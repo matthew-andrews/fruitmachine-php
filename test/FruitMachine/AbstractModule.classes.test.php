@@ -63,4 +63,9 @@ class AbstractModuleClassesTest extends \PHPUnit_Framework_TestCase {
     $this->assertContains('data-counter="2"', $pineapple->toHTML());
   }
 
+  public function test_should_encode_html_entities() {
+    $pineapple = $this->_fm->create('pineapple');
+    $this->assertContains('data-entity="&quot;"', $pineapple->toHTML());
+  }
+
 }
