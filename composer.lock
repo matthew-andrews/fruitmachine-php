@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2598aaf9331dcd32417ea7eee3b9fef6",
+    "hash": "f9c0101b574e4e045e8bef40734a4783",
     "packages": [
         {
             "name": "mattandrews/model",
-            "version": "v0.0.9",
+            "version": "v0.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthew-andrews/model-php.git",
-                "reference": "9fe3d67b0590f76c1446a8b6283da6439fe7a4f5"
+                "reference": "569b1276fc8712c2870c1836573c9e26a4a56096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/9fe3d67b0590f76c1446a8b6283da6439fe7a4f5",
-                "reference": "9fe3d67b0590f76c1446a8b6283da6439fe7a4f5",
+                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/569b1276fc8712c2870c1836573c9e26a4a56096",
+                "reference": "569b1276fc8712c2870c1836573c9e26a4a56096",
                 "shasum": ""
             },
             "require-dev": {
@@ -38,7 +38,7 @@
                 }
             ],
             "description": "A PHP port of @wilsonpage's Model",
-            "time": "2014-02-27 15:44:17"
+            "time": "2014-02-27 17:09:53"
         }
     ],
     "packages-dev": [
