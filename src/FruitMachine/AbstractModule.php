@@ -339,11 +339,41 @@ abstract class AbstractModule {
    * @return string       Wrapped HTML
    */
   private function _wrapHTML($html) {
-    return '<'. $this->tag
-      . ' class="' . $this->module() . ' ' . implode(' ', $this->classes) . '"'
-      . ' id="' . $this->_fmid . '">'
+
+    $attrs = $this->_getTagAttributes();
+    $classes = $this->_getTagClasses();
+    array_unshift($classes, $this->module());
+
+    $attrs['class'] = implode(' ', $classes);
+    $attrs['id'] = $this->_fmid;
+
+    array_walk($attrs, function($v, $k) use (&$attrs) {
+      $attrs[$k] = sprintf('%s="%s"', $k, $v);
+    });
+
+    return '<'. $this->tag . ' ' . implode(' ', $attrs) . '>'
       . $html
       . '</' . $this->tag . '>';
+  }
+
+  /**
+   * HTML attributes for the module tag.
+   * Can be overridden in implementations of this abstract module.
+   *
+   * @return array Array of key:val HTML attribute pairs
+   */
+  protected function _getTagAttributes() {
+    return array();
+  }
+
+  /**
+   * HTML classes for the module tag.
+   * Can be overridden in implementations of this abstract module.
+   *
+   * @return array Array of key:val HTML attribute pairs
+   */
+  protected function _getTagClasses() {
+    return $this->classes;
   }
 
 }
