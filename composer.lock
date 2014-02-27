@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "d57773740032a9f5d0ab6f45d6029c33",
+    "hash": "2598aaf9331dcd32417ea7eee3b9fef6",
     "packages": [
         {
             "name": "mattandrews/model",
-            "version": "v0.0.8",
+            "version": "v0.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthew-andrews/model-php.git",
-                "reference": "307352949ff1fd0d3a0cf3685523c6d83af79f07"
+                "reference": "9fe3d67b0590f76c1446a8b6283da6439fe7a4f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/307352949ff1fd0d3a0cf3685523c6d83af79f07",
-                "reference": "307352949ff1fd0d3a0cf3685523c6d83af79f07",
+                "url": "https://api.github.com/repos/matthew-andrews/model-php/zipball/9fe3d67b0590f76c1446a8b6283da6439fe7a4f5",
+                "reference": "9fe3d67b0590f76c1446a8b6283da6439fe7a4f5",
                 "shasum": ""
             },
             "require-dev": {
@@ -38,7 +38,7 @@
                 }
             ],
             "description": "A PHP port of @wilsonpage's Model",
-            "time": "2014-02-08 18:34:25"
+            "time": "2014-02-27 15:44:17"
         }
     ],
     "packages-dev": [
@@ -80,13 +80,13 @@
             "version": "1.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpmd/phpmd.git",
-                "reference": "7d03a50e937811970751697ad1aea33a1089d66f"
+                "url": "git://github.com/phpmd/phpmd.git",
+                "reference": "1.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpmd/phpmd/zipball/7d03a50e937811970751697ad1aea33a1089d66f",
-                "reference": "7d03a50e937811970751697ad1aea33a1089d66f",
+                "url": "https://github.com/phpmd/phpmd/archive/1.4.1.zip",
+                "reference": "1.4.1",
                 "shasum": ""
             },
             "require": {
@@ -428,13 +428,13 @@
             "version": "1.2.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875"
+                "url": "git://github.com/sebastianbergmann/phpunit-mock-objects.git",
+                "reference": "1.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5794e3c5c5ba0fb037b11d8151add2a07fa82875",
-                "reference": "5794e3c5c5ba0fb037b11d8151add2a07fa82875",
+                "url": "https://github.com/sebastianbergmann/phpunit-mock-objects/archive/1.2.3.zip",
+                "reference": "1.2.3",
                 "shasum": ""
             },
             "require": {
