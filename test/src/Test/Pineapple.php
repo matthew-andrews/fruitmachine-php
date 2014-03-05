@@ -9,7 +9,8 @@ class Pineapple extends \FruitMachine\AbstractModule {
   protected function _getTagAttributes() {
     return array(
       'data-counter' => $this->_counter,
-      'data-entity' => '"'
+      'data-entity' => '"',
+      'data-encoded-entity' => '&rsquo;'
     );
   }
 

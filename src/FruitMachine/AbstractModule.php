@@ -357,7 +357,7 @@ abstract class AbstractModule {
   }
 
   private function _encodeHTML($html) {
-    return htmlspecialchars($html, ENT_COMPAT, 'UTF-8');
+    return htmlspecialchars($html, ENT_COMPAT, 'UTF-8', false);
   }
 
   /**

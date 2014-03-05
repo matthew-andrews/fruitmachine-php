@@ -68,4 +68,9 @@ class AbstractModuleClassesTest extends \PHPUnit_Framework_TestCase {
     $this->assertContains('data-entity="&quot;"', $pineapple->toHTML());
   }
 
+  public function test_should_not_double_encode_html_entities() {
+    $pineapple = $this->_fm->create('pineapple');
+    $this->assertContains('data-encoded-entity="&rsquo;"', $pineapple->toHTML());
+  }
+
 }
