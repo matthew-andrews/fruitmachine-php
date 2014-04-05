@@ -46,4 +46,4 @@ Unit tests are run on each build against PHP 5.3, 5.4 and 5.5.
 
 ## Credits and collaboration
 
-The lead developer of FruitMachine-php is [Matt Andrews](http://github.com/matthew-andrews) at FT Labs. All open source code released by FT Labs is licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request. Enjoy.
+The lead developer of FruitMachine-php is [Matt Andrews](http://github.com/matthew-andrews) at FT Labs. All open source code released by FT Labs is licenced under the MIT licence. We welcome comments, feedback and suggestions. Please feel free to raise an issue or pull request.
