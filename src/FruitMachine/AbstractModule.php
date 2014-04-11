@@ -274,8 +274,7 @@ abstract class AbstractModule {
    * to inflate serverside rendered
    * views.
    *
-   * @return {Object}
-   * @api public
+   * @return array A json-serializable representation of the fm structure
    */
   public function serialize() {
     $json = array();
