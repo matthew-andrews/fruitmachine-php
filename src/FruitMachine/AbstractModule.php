@@ -49,7 +49,7 @@ abstract class AbstractModule {
    * @param FruitMachine $machine
    * @param array        $options
    */
-  final public function __construct(FruitMachine $machine, array $options) {
+  public function __construct(FruitMachine $machine, array $options) {
     $this->_fruitmachine = $machine;
     $this->_configure($options);
     if (!empty($options['children'])) {
@@ -69,7 +69,7 @@ abstract class AbstractModule {
    * @param AbstractModule|array $children
    * @param array|string|number   $options
    */
-  final public function add($child = null, $options = null) {
+  public function add($child = null, $options = null) {
     if (!$child) {
       return $this;
     }
@@ -107,7 +107,7 @@ abstract class AbstractModule {
     return $this;
   }
 
-  final public function each($fn) {
+  public function each($fn) {
     foreach ($this->children as $child) {
       $result = $fn($child);
       if ($result) {
@@ -116,7 +116,7 @@ abstract class AbstractModule {
     }
   }
 
-  final public function id($id = null) {
+  public function id($id = null) {
     if (func_num_args() === 0) {
       return $this->_id;
     }
@@ -136,7 +136,7 @@ abstract class AbstractModule {
    * @param  string                $key The key to search for
    * @return string|AbstractModule      The module string or AbstractModule
    */
-  final public function module($key = null) {
+  public function module($key = null) {
     if (func_num_args() === 0) {
       return $this->_module;
     }
@@ -158,7 +158,7 @@ abstract class AbstractModule {
    * @param  string $key Search by this
    * @return array       A list of modules matching the key
    */
-  final public function modules($key) {
+  public function modules($key) {
     $list = isset($this->_modules[$key])
       ? $this->_modules[$key]
       : array();
@@ -177,7 +177,7 @@ abstract class AbstractModule {
     return $this->_module;
   }
 
-  final public function remove($param1 = array(), $param2 = array()) {
+  public function remove($param1 = array(), $param2 = array()) {
 
     // Don't do anything if the first arg is null
     if (func_num_args() === 1 && is_null($param1)) {
@@ -240,7 +240,7 @@ abstract class AbstractModule {
    *
    * @return string
    */
-  final public function toHTML() {
+  public function toHTML() {
     $data = array();
     $templateInstance = $this->_fruitmachine->config['templateInstance'];
 
@@ -264,6 +264,44 @@ abstract class AbstractModule {
     // Wrap the html in a FruitMachine generated root element and
     // return.
     return $this->_wrapHTML($html);
+  }
+
+  /**
+   * Returns a serializable represention of
+   * a FruitMachine Module. This can
+   * be generated serverside and
+   * passed into new FruitMachine(json)
+   * to inflate serverside rendered
+   * views.
+   *
+   * @return {Object}
+   * @api public
+   */
+  public function serialize() {
+    $json = array();
+    $children = array();
+
+    // Recurse
+    $this->each(function($child) use (&$children) {
+      array_push($children, $child->toJSON());
+    });
+
+    $json['children'] = $children;
+    $json['id'] = $this->id();
+    $json['fmid'] = $this->_fmid;
+    $json['module'] = $this->module();
+    $json['model'] = $this->model->toJSON();
+    $json['slot'] = $this->slot;
+
+    return $json;
+  }
+
+  /**
+   * Provides an alias to serialize so that the PHP
+   * and JS FruitMachines have the same API
+   */
+  public function toJSON() {
+    return $this->serialize();
   }
 
   abstract public function template(array $data);

@@ -15,60 +15,18 @@ class AbstractModuleToJSONTest extends \PHPUnit_Framework_TestCase {
     $this->_fm->reset();
   }
 
-  public function test_should_return_an_fmid() {
+  public function test_toJSON_should_return_an_fmid() {
     $apple = $this->_fm->create('apple');
     $json = $apple->toJSON();
-
-    $this->assert($json['fmid']);
+    $this->assertArrayHasKey('fmid', $json);
   }
 
-// "Should fire `tojson` event": function() {
-//   var apple = new Apple();
-//   var spy = this.spy();
-//
-//   apple.on('tojson', spy);
-//   apple.toJSON();
-//
-//   assert(spy.called);
-// },
-//
-// "Should be able to manipulate json output via `tojson` event": function() {
-//   var apple = new Apple();
-//
-//   apple.on('tojson', function(json) {
-//     json.test = 'data';
-//   });
-//
-//   var json = apple.toJSON();
-//
-//   assert.equals(json.test, 'data');
-// },
-//
-// "Should be able to inflate the output": function() {
-//   var sandbox = helpers.createSandbox();
-//   var layout = new Layout({
-//     children: {
-//       1: { module: 'apple' }
-//     }
-//   });
-//
-//   layout
-//     .render()
-//     .inject(sandbox)
-//     .setup();
-//
-//   var layoutEl = layout.el;
-//   var appleEl = layout.module('apple').el;
-//   var json = layout.toJSON();
-//   var inflated = fruitmachine(json);
-//
-//   inflated.setup();
-//
-//   var layoutElInflated = inflated.el;
-//   var appleElInflated = inflated.module('apple').el;
-//
-//   assert.equals(layoutEl, layoutElInflated);
-//   assert.equals(appleEl, appleElInflated);
-
+  public function test_toJSON_should_return_fmid_on_children() {
+    $apple = $this->_fm->create('apple');
+    $layout = $this->_fm->create('layout');
+    $layout->add($apple);
+    $json = $layout->toJSON();
+    $this->assertArrayHasKey('fmid', $json['children'][0]);
+  }
 
 }
