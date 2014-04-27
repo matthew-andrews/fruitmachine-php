@@ -26,7 +26,7 @@ class FruitMachine {
    *
    * @param ModelInterface $model A php object that implements the model interface
    */
-  final public function __construct($model) {
+  public function __construct($model) {
     $this->reset();
 
     // If it isn't already loaded trigger the autoloading of model class
@@ -81,7 +81,7 @@ class FruitMachine {
    * @param string A string or regular expression to alias the module with
    * @throws Exception\ModuleNotDefined If a class doesn't exist
    */
-  final public function define($classes, $name = false) {
+  public function define($classes, $name = false) {
     if (!is_array($classes)) {
       $classes = array($name => $classes);
     }
@@ -100,7 +100,7 @@ class FruitMachine {
    * @param  array        $options Options to be passed into the FM Module
    * @return AbstractModule  A fully instantiated FM module
    */
-  final public function create($name, array $options = array()) {
+  public function create($name, array $options = array()) {
     $class = null;
     if (is_array($name)) {
       $options = $name;
@@ -134,7 +134,7 @@ class FruitMachine {
    * @param  array                       $data Data
    * @return \MattAndrews\ModelInterface An object of the type passed into the FM's constructor
    */
-  final public function model($data) {
+  public function model($data) {
     if (is_a($data, $this->_model)) {
       return $data;
     }
@@ -146,7 +146,7 @@ class FruitMachine {
    *
    * @return void
    */
-  final public function reset() {
+  public function reset() {
     $this->_modules = array();
     $this->_patterns = array();
   }
